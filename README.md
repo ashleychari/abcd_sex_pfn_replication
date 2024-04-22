@@ -1,4 +1,4 @@
-# ABCD Dataset PFN Sex Difference Replication Project
+# ABCD Dataset PFN Sex Differences Replication Project
 
 ## Directories of this repository
 - discovery and replication sample setup scripts: Contains all python and R scripts related to the creation of samples utilized for the univariate and multivariate analysis 
