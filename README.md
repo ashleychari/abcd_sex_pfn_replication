@@ -45,7 +45,7 @@ Contains all the of the python and R scripts to transform GAMs Z vectors into un
 - svm_workbench_visualization_matrix.py: Python script intended to create coefficient weight matrix from the permutation 2 fold cv svm runs for discovery or replication set (script not tested yet)
 
 ### Haufe transformation scripts
-- haufe_transform_weights.py - Script adapted from arielle and kevin that haufe transforms support vector machine coefficients
+- haufe_transform_weights.py - Script adapted from arielle and kevin that haufe transforms support vector machine coefficients; PLEASE NOTE: THERE IS AN ERROR with this script that needs to be fixed
 
 
 # Location of files
