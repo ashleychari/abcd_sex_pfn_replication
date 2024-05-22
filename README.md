@@ -12,6 +12,7 @@
 ## Univariate analysis
 ### GAMs scripts
 Contains all the scripts that run the GAMs analysis
+- abcd_univariate_analysis: script that runs the GAMs analysis on the discovery dataset
 - abcd_univariate_analysis_replication: script that runs the GAMs analysis on the replication dataset that was obtained from the discovery and replication sample setup scripts
 
 ### Barplot Scipts
@@ -29,7 +30,7 @@ Contains all the of the python and R scripts to transform GAMs Z vectors into un
 - create_network_specific_matrices.py: Python script that goes through and creates network specific matrices
 
 ### SVM scripts
-- run_bootstrap_svm.py: Uses arielle's method with  randomly sampling and uses discovery and replication as a fold
+- run_bootstrap_svm.py: Uses arielle's method with randomly sampling and uses discovery and replication as a fold
 - run_svm.py: Uses arielle's method to run svm with discovery and replication each as a fold and identifies best C parameter
 - run_network_specific_svm.py: 
 - run_svm_2fold_cv.py: Runs 2 fold cross validation svm on discovery and replication sets separately, also identifies best C parameter, regresses out covariates (such as site, age, and motion). Seed is set so that replicable results can occur (meaning the same folds will be chosen whenever this script is ran)
@@ -42,7 +43,7 @@ Contains all the of the python and R scripts to transform GAMs Z vectors into un
 ### SVM workbench visualization
 - svm_workbench_visualization_matrix_replication.py: Python script to create coefficient weight matrix from the 2 fold cv svm runs for replication set
 - svm_workbench_visualization_matrix.py: Python script to create coefficient weight matrix from the 2 fold cv svm runs for discovery set
-- svm_workbench_visualization_matrix.py: Python script intended to create coefficient weight matrix from the permutation 2 fold cv svm runs for discovery or replication set (script not tested yet)
+- svm_workbench_visualization_matrix_multi_times_matrix.py: Python script intended to create coefficient weight matrix from the permutation 2 fold cv svm runs for discovery or replication set (script not tested yet)
 
 ### Haufe transformation scripts
 - haufe_transform_weights.py - Script adapted from arielle and kevin that haufe transforms support vector machine coefficients; PLEASE NOTE: THERE IS AN ERROR with this script that needs to be fixed
