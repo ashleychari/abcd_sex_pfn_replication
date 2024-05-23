@@ -29,5 +29,5 @@ if __name__ == "__main__":
         w_brain_sex_matrix.append(w_brain_sex_all[(i - 1) * 59412: i * 59412])
 
     w_brain_sex_matrix = np.array(w_brain_sex_matrix)
-    np.save(f"{results_folder}/w_brain_sex_matrix_multi_times.npy", w_brain_sex_matrix)
+    np.save(f"{results_folder}/w_brain_sex_matrix_100_times_discovery.npy", w_brain_sex_matrix)
     
