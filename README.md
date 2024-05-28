@@ -17,6 +17,7 @@ Contains all the scripts that run the GAMs analysis
 
 ### Barplot Scipts
 Contains all of the scripts that go along with the creation of the stacked barplot figure.
+- create_barplot.R: R script taken from Sheila to plot the number of vertices for each network
 - make_barplot_mat.py: Create the matrix from the GAMs analysis zscores from each of the networks.
 
 ### workbench setup scripts
@@ -34,7 +35,7 @@ Contains all the of the python and R scripts to transform GAMs Z vectors into un
 - run_svm.py: Uses arielle's method to run svm with discovery and replication each as a fold and identifies best C parameter
 - run_network_specific_svm.py: 
 - run_svm_2fold_cv.py: Runs 2 fold cross validation svm on discovery and replication sets separately, also identifies best C parameter, regresses out covariates (such as site, age, and motion). Seed is set so that replicable results can occur (meaning the same folds will be chosen whenever this script is ran)
-- run_svm_2fold_resmulti_times.py: Runs 2 fold cross validation svm for a permutation of times on discovery and replication sets separately, also identifies best C parameter, regresses out covariates. Does not set seed so that random shuffles can be created for the 2 fold cv at each iteration
+- run_svm_2fold_resmulti_times_batched.py: Runs 2 fold cross validation svm for a permutation of times on discovery and replication sets separately, also identifies best C parameter, regresses out covariates. Does not set seed so that random shuffles can be created for the 2 fold cv at each iteration. Does all of this in batches. Used with `svm_resmulti_times_parallel_batched.sh` and `svm_submit_batched_jobs.py`.
 
 ### SVM weights barplot
 - sum_abs_weights_matrix.py: Gets unthresholded absolute sum of the weights and creates matrix
@@ -46,8 +47,17 @@ Contains all the of the python and R scripts to transform GAMs Z vectors into un
 - svm_workbench_visualization_matrix_multi_times_matrix.py: Python script intended to create coefficient weight matrix from the permutation 2 fold cv svm runs for discovery or replication set (script not tested yet)
 
 ### Haufe transformation scripts
-- haufe_transform_weights.py - Script adapted from arielle and kevin that haufe transforms support vector machine coefficients; PLEASE NOTE: THERE IS AN ERROR with this script that needs to be fixed
+- haufe_transform_weights.py - Script adapted from arielle and kevin that haufe transforms support vector machine coefficients
 
+
+### Multivariate analysis steps
+1. Run `create_nonzero_matrix.py` to setup the non-zero features matrix for subsequent steps. \\
+2. Next, run `svm_submit_batched_jobs.py`, which will create 25 jobs that go through 4 iterations of the `run_svm_2fold_resmulti_times_batched.py` script. \\
+3. Create the weight matrix by taking the mean of each of the coefficients from all the fold instances and save this weight matrix using the `svm_workbench_visualization_multi_times_matrix.py` script. \\
+4. Use the `haufe_transform_weights.py` to do a haufe transformation on the coefficients 
+5. Use this weight matrix from step 3 in the `svm_stacked_barplot.R` script to get the stacked barplot of feature importance for both Males and Females \\
+6. Use the weight matrix in the `sum_abs_weights_matrix.py` to get the absolute value sum of the weights and save this array \\
+7. Take the saved array and run the `abs_sum_weights_to_cifti.R` script to convert the matrix to a dscalar.nii file that can be visualized via workbench
 
 # Location of files
 All files are located in project folder `ash_pfn_sex_diff_abcd`.

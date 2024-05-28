@@ -8,10 +8,13 @@ def create_network_matrices(data_for_ridge, discovery):
     subject_keys = data_for_ridge['subjectkey']
     for i in range(17):
         print(f"Creating network {i+1} matrix....")
+        # create matrix that is len(subject_keys) by 59412
         network_matrix = np.zeros((len(subject_keys), 59412))
         for j in range(len(subject_keys)):
             filename = f"/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/subject_data/sub-NDAR{subject_keys[j]}/IndividualParcel_Final_sbj1_comp17_alphaS21_1_alphaL300_vxInfo1_ard0_eta0/final_UV.mat"
+            # Get loadings for each network
             subject_loadings = h5py.File(filename, "r")['#refs#']['c'][()][i,]
+            # Put loadings in place for each subject
             network_matrix[j,] = subject_loadings
 
         network_matrix_nonzero_array = network_matrix[:, network_matrix.any(0)]
