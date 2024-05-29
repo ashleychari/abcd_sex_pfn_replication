@@ -49,52 +49,6 @@ def add_covariates(data_for_ridge_discovery, data_for_ridge_replication):
 
     return covariates_discovery, covariates_replication
 
-def c_param_search(C_range, covariates, dataset, indices):
-    cs = []
-    average_accuracies = []
-    average_aucs = []
-    covariates_train = covariates[indices]
-    print(f"len X_train: {len(dataset)}")
-    print(f"len covariates_train: {len(covariates_train)}")
-    for i in C_range:
-        cs.append(i)
-        fold_accuracies = []
-        fold_aucs = []
-        k_folds = KFold(n_splits=2, shuffle=True)
-        for train_indices, test_indices in k_folds.split(dataset):
-            X_train_cv = dataset[train_indices]
-            X_val_cv = dataset[test_indices]
-            y_train_cv = dataset[train_indices]
-            y_val_cv = dataset[test_indices]
-
-            nuisance_model = LinearRegression()
-            nuisance_train = covariates_train[train_indices]
-            nuisance_test = covariates_train[test_indices]
-            nuisance_model.fit(nuisance_train, X_train_cv)
-
-            X_train_nuisance_removed = X_train_cv - nuisance_model.predict(nuisance_train)
-            X_val_nuisance_removed = X_val_cv - nuisance_model.predict(nuisance_test)
-
-            scaler = MinMaxScaler()
-            X_train_scaled = scaler.fit_transform(X_train_nuisance_removed)
-            X_val_scaled = scaler.transform(X_val_nuisance_removed)
-
-            print("Fitting svm....")
-            clf = svm.SVC(kernel='linear', C=i, random_state=42)
-            clf.fit(X_train_scaled, y_train_cv)
-            y_pred = clf.predict(X_val_scaled)
-            fold_accuracies.append(accuracy_score(y_val_cv, y_pred))
-            fold_aucs.append(roc_auc_score(y_val_cv, y_pred))
-
-    average_accuracies.append(np.mean(fold_accuracies))
-    average_aucs.append(np.mean(fold_aucs))
-
-    # Identify optimal c based on auc
-    best_c_ind = np.argmax(average_accuracies)
-    best_c = cs[best_c_ind]
-    return best_c
-
-
 
 def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_group, C_range):
     features_nonzero_matrix = load_nonzero_mat(matrix_filename)
@@ -129,7 +83,48 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
     specificities = []
     
     # Train as trainset then test as testset for fold 1
-    best_c = c_param_search(C_range, covariates, X_train, indices_train)
+    cs = []
+    average_accuracies = []
+    average_aucs = []
+    covariates_train = covariates[indices_train]
+    print(f"len X_train: {len(X_train)}")
+    print(f"len covariates_train: {len(covariates_train)}")
+    for i in C_range:
+        cs.append(i)
+        fold_accuracies = []
+        fold_aucs = []
+        k_folds = KFold(n_splits=2, shuffle=True) 
+        for train_indices, test_indices in k_folds.split(X_train):
+            X_train_cv = X_train[train_indices]
+            X_val_cv = X_train[test_indices]
+            y_train_cv = y_train[train_indices]
+            y_val_cv = y_train[test_indices]
+
+            nuisance_model = LinearRegression()
+            nuisance_train = covariates_train[train_indices]
+            nuisance_test = covariates_train[test_indices]
+            nuisance_model.fit(nuisance_train, X_train_cv)
+
+            X_train_nuisance_removed = X_train_cv - nuisance_model.predict(nuisance_train)
+            X_val_nuisance_removed = X_val_cv - nuisance_model.predict(nuisance_test)
+
+            scaler = MinMaxScaler()
+            X_train_scaled = scaler.fit_transform(X_train_nuisance_removed)
+            X_val_scaled = scaler.transform(X_val_nuisance_removed)
+
+            print("Fitting svm....")
+            clf = svm.SVC(kernel='linear', C=i, random_state=42)
+            clf.fit(X_train_scaled, y_train_cv)
+            y_pred = clf.predict(X_val_scaled)
+            fold_accuracies.append(accuracy_score(y_val_cv, y_pred))
+            fold_aucs.append(roc_auc_score(y_val_cv, y_pred))
+
+    average_accuracies.append(np.mean(fold_accuracies))
+    average_aucs.append(np.mean(fold_aucs))
+
+    # Identify optimal c based on auc
+    best_c_ind = np.argmax(average_accuracies)
+    best_c = cs[best_c_ind]
 
     nuisance_model = LinearRegression()
     nuisance_train = covariates[indices_train]
@@ -158,7 +153,48 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
 
 
     # Test as trainset then train as testset as fold 2
-    best_c = c_param_search(C_range, covariates, X_test, indices_test)
+    cs = []
+    average_accuracies = []
+    average_aucs = []
+    covariates_test = covariates[indices_test]
+    print(f"len X_test: {len(X_test)}")
+    print(f"len covariates_test: {len(covariates_test)}")
+    for i in C_range:
+        cs.append(i)
+        fold_accuracies = []
+        fold_aucs = []
+        k_folds = KFold(n_splits=2, shuffle=True)
+        for train_indices, test_indices in k_folds.split(X_test):
+            X_train_cv = X_test[train_indices]
+            X_val_cv = X_test[test_indices]
+            y_train_cv = y_test[train_indices]
+            y_val_cv = y_test[test_indices]
+
+            nuisance_model = LinearRegression()
+            nuisance_train = covariates_test[train_indices]
+            nuisance_test = covariates_test[test_indices]
+            nuisance_model.fit(nuisance_train, X_train_cv)
+
+            X_train_nuisance_removed = X_train_cv - nuisance_model.predict(nuisance_train)
+            X_val_nuisance_removed = X_val_cv - nuisance_model.predict(nuisance_test)
+
+            scaler = MinMaxScaler()
+            X_train_scaled = scaler.fit_transform(X_train_nuisance_removed)
+            X_val_scaled = scaler.transform(X_val_nuisance_removed)
+
+            print("Fitting svm....")
+            clf = svm.SVC(kernel='linear', C=i, random_state=42)
+            clf.fit(X_train_scaled, y_train_cv)
+            y_pred = clf.predict(X_val_scaled)
+            fold_accuracies.append(accuracy_score(y_val_cv, y_pred))
+            fold_aucs.append(roc_auc_score(y_val_cv, y_pred))
+
+    average_accuracies.append(np.mean(fold_accuracies))
+    average_aucs.append(np.mean(fold_aucs))
+
+    # Identify optimal c based on accuracy
+    best_c_ind = np.argmax(average_accuracies)
+    best_c = cs[best_c_ind]
 
     nuisance_model = LinearRegression()
     nuisance_train = covariates[indices_train]
