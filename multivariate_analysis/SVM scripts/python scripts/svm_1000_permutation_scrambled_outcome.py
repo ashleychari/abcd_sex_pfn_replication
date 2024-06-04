@@ -242,10 +242,13 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
     if os.path.isdir(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}") == False:
         os.mkdir(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}")
 
+    # Create c values based on user inputted c_start and c_end to use for hyperparameter tuning
     c_range = range(c_range_start, c_range_end)
     c_values = [2**i for i in c_range]
+    # Run analysis on both discovery and replication sets
     accuracy_discovery, auc_discovery, fpr_discovery, tpr_discovery, specificity_discovery, coefs_discovery = run_2fold_svm(discovery_nonzero_mat_filename, discovery_data_for_ridge, replication_data_for_ridge, "discovery", c_values)
     accuracy_replication, auc_replication, fpr_replication, tpr_replication, specificity_replication, coefs_replication = run_2fold_svm(replication_nonzero_mat_filename, discovery_data_for_ridge, replication_data_for_ridge, "replication", c_values)
+    # Create empty metrics table and fill with values returned from the analysis and save in csv
     metrics_table = pd.DataFrame()
     metrics_table['set'] = ['discovery', 'replication']
     metrics_table['accuracy'] = [accuracy_discovery, accuracy_replication]
@@ -255,6 +258,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
     metrics_table['specificity'] = [specificity_discovery, specificity_replication]
     metrics_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}/2foldcv_metrics_table.csv")
 
+    # Create table to hold coefficients from each fold for discovery set and save in csv
     coefs_discovery_table = pd.DataFrame()
     i = 1
     for coef_fold in coefs_discovery:
@@ -262,6 +266,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
         i += 1
     coefs_discovery_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}/2foldcv_discovery_coefs.csv")
 
+    # Create table to hold coefficients from each fold for replication set and save in csv
     coefs_replication_table = pd.DataFrame()
     i = 1
     for coef_fold in coefs_replication:
@@ -271,15 +276,18 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
     coefs_replication_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}/2foldcv_replication_coefs.csv")
     
 if __name__ == "__main__":
+    # Global variables
     discovery_nonzero_mat_filename = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery.npy'
     replication_nonzero_mat_filename = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication.npy'
     discovery_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_removed_siblings.csv')
     replication_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_removed_siblings.csv')
     discovery_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery_nonzero_indices.csv')
     replication_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_nonzero_indices.csv')
+    # Get user input
     c_range_start = int(sys.argv[1])
     c_range_end = int(sys.argv[2])
     start_time_idx = int(sys.argv[3])
     end_time_idx = int(sys.argv[4])
     for time_idx in range(start_time_idx, end_time_idx):
+        # Run 2fold svm
         svm_wrapper(c_range_start, c_range_end, time_idx)
