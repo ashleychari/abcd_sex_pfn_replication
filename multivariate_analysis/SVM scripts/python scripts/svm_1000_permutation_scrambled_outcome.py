@@ -12,6 +12,7 @@ from sklearn import metrics
 import os
 from sklearn.metrics import confusion_matrix
 
+
 '''
 Function to load in nonzero matrix
 '''
@@ -49,58 +50,23 @@ def add_covariates(data_for_ridge_discovery, data_for_ridge_replication):
 
     return covariates_discovery, covariates_replication
 
-
-def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_group, C_range):
-    features_nonzero_matrix = load_nonzero_mat(matrix_filename)
-    data_for_ridge = pd.concat([discovery_data, replication_data], axis=0)
-    covariates_discovery, covariates_replication = add_covariates(discovery_data, replication_data)
-    if matched_group == "discovery":
-        covariates = covariates_discovery
-    else:
-        covariates = covariates_replication
-    X = features_nonzero_matrix
-
-    # regress covariates out of features
-    covariates = covariates.drop(['subject_id'], axis=1)
-    covariates = np.array(covariates)
-
-    if matched_group == "discovery":
-        sex = data_for_ridge[data_for_ridge['matched_group'] == 1]['sex'].values
-    else:
-        sex = data_for_ridge[data_for_ridge['matched_group'] == 2]['sex'].values
-    
-    # Change this so Male=-1 and female=1
-    y = np.array([-1 if i == "M" else 1 for i in sex]) # set Male=1, female=-1
-
-    # Split data into train and test
-    indices = np.arange(len(X))
-    X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(X, y, indices, test_size=0.5)
-
-    # Repeat 2 fold cross validation with train and test as a fold each
-    coefs = []
-    accuracies = []
-    aucs = []
-    fprs = []
-    tprs = []
-    specificities = []
-    
-    # Train as trainset then test as testset for fold 1
+def c_param_search(C_range, covariates, dataset, indices, y):
     cs = []
     average_accuracies = []
     average_aucs = []
-    covariates_train = covariates[indices_train]
-    print(f"len X_train: {len(X_train)}")
+    covariates_train = covariates[indices]
+    print(f"len X_train: {len(dataset)}")
     print(f"len covariates_train: {len(covariates_train)}")
     for i in C_range:
         cs.append(i)
         fold_accuracies = []
         fold_aucs = []
-        k_folds = KFold(n_splits=2, shuffle=True) 
-        for train_indices, test_indices in k_folds.split(X_train):
-            X_train_cv = X_train[train_indices]
-            X_val_cv = X_train[test_indices]
-            y_train_cv = y_train[train_indices]
-            y_val_cv = y_train[test_indices]
+        k_folds = KFold(n_splits=2, shuffle=True)
+        for train_indices, test_indices in k_folds.split(dataset):
+            X_train_cv = dataset[train_indices]
+            X_val_cv = dataset[test_indices]
+            y_train_cv = y[train_indices]
+            y_val_cv = y[test_indices]
 
             nuisance_model = LinearRegression()
             nuisance_train = covariates_train[train_indices]
@@ -127,6 +93,48 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
     # Identify optimal c based on auc
     best_c_ind = np.argmax(average_accuracies)
     best_c = cs[best_c_ind]
+    return best_c
+
+
+def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_group, C_range):
+    features_nonzero_matrix = load_nonzero_mat(matrix_filename)
+    data_for_ridge = pd.concat([discovery_data, replication_data], axis=0)
+    covariates_discovery, covariates_replication = add_covariates(discovery_data, replication_data)
+    if matched_group == "discovery":
+        covariates = covariates_discovery
+    else:
+        covariates = covariates_replication
+    X = features_nonzero_matrix
+
+    # regress covariates out of features
+    covariates = covariates.drop(['subject_id'], axis=1)
+    covariates = np.array(covariates)
+
+    if matched_group == "discovery":
+        sex = data_for_ridge[data_for_ridge['matched_group'] == 1]['sex'].values
+    else:
+        sex = data_for_ridge[data_for_ridge['matched_group'] == 2]['sex'].values
+    
+    # Change this so Male=-1 and female=1
+    y = np.array([-1 if i == "M" else 1 for i in sex]) # set Male=1, female=-1
+    
+    # randomly shuffle the outcome variable
+    np.random.shuffle(y)
+
+    # Split data into train and test
+    indices = np.arange(len(X))
+    X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(X, y, indices, test_size=0.5)
+
+    # Repeat 2 fold cross validation with train and test as a fold each
+    coefs = []
+    accuracies = []
+    aucs = []
+    fprs = []
+    tprs = []
+    specificities = []
+    
+    # Train as trainset then test as testset for fold 1
+    best_c = c_param_search(C_range, covariates, X_train, indices_train, y_train)
 
     nuisance_model = LinearRegression()
     nuisance_train = covariates[indices_train]
@@ -155,48 +163,7 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
 
 
     # Test as trainset then train as testset as fold 2
-    cs = []
-    average_accuracies = []
-    average_aucs = []
-    covariates_test = covariates[indices_test]
-    print(f"len X_test: {len(X_test)}")
-    print(f"len covariates_test: {len(covariates_test)}")
-    for i in C_range:
-        cs.append(i)
-        fold_accuracies = []
-        fold_aucs = []
-        k_folds = KFold(n_splits=2, shuffle=True)
-        for train_indices, test_indices in k_folds.split(X_test):
-            X_train_cv = X_test[train_indices]
-            X_val_cv = X_test[test_indices]
-            y_train_cv = y_test[train_indices]
-            y_val_cv = y_test[test_indices]
-
-            nuisance_model = LinearRegression()
-            nuisance_train = covariates_test[train_indices]
-            nuisance_test = covariates_test[test_indices]
-            nuisance_model.fit(nuisance_train, X_train_cv)
-
-            X_train_nuisance_removed = X_train_cv - nuisance_model.predict(nuisance_train)
-            X_val_nuisance_removed = X_val_cv - nuisance_model.predict(nuisance_test)
-
-            scaler = MinMaxScaler()
-            X_train_scaled = scaler.fit_transform(X_train_nuisance_removed)
-            X_val_scaled = scaler.transform(X_val_nuisance_removed)
-
-            print("Fitting svm....")
-            clf = svm.SVC(kernel='linear', C=i, random_state=42)
-            clf.fit(X_train_scaled, y_train_cv)
-            y_pred = clf.predict(X_val_scaled)
-            fold_accuracies.append(accuracy_score(y_val_cv, y_pred))
-            fold_aucs.append(roc_auc_score(y_val_cv, y_pred))
-
-    average_accuracies.append(np.mean(fold_accuracies))
-    average_aucs.append(np.mean(fold_aucs))
-
-    # Identify optimal c based on accuracy
-    best_c_ind = np.argmax(average_accuracies)
-    best_c = cs[best_c_ind]
+    best_c = c_param_search(C_range, covariates, X_test, indices_test, y_test)
 
     nuisance_model = LinearRegression()
     nuisance_train = covariates[indices_train]
@@ -232,8 +199,8 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
 
 
 def svm_wrapper(c_range_start, c_range_end, idx_time):
-    if os.path.isdir(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/time_{idx_time}") == False:
-        os.mkdir(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/time_{idx_time}")
+    if os.path.isdir(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}") == False:
+        os.mkdir(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}")
 
     c_range = range(c_range_start, c_range_end)
     c_values = [2**i for i in c_range]
@@ -246,14 +213,14 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
     metrics_table['tpr'] = [tpr_discovery, tpr_replication]
     metrics_table['fpr'] = [fpr_discovery, fpr_replication]
     metrics_table['specificity'] = [specificity_discovery, specificity_replication]
-    metrics_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/time_{idx_time}/2foldcv_metrics_table.csv")
+    metrics_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}/2foldcv_metrics_table.csv")
 
     coefs_discovery_table = pd.DataFrame()
     i = 1
     for coef_fold in coefs_discovery:
         coefs_discovery_table[f"fold_{i}_coefs"] = coef_fold
         i += 1
-    coefs_discovery_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/time_{idx_time}/2foldcv_discovery_coefs.csv")
+    coefs_discovery_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}/2foldcv_discovery_coefs.csv")
 
     coefs_replication_table = pd.DataFrame()
     i = 1
@@ -261,7 +228,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
         coefs_replication_table[f"fold_{i}_coefs"] = coef_fold
         i += 1
         
-    coefs_replication_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/time_{idx_time}/2foldcv_replication_coefs.csv")
+    coefs_replication_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/perm_1000_times/time_{idx_time}/2foldcv_replication_coefs.csv")
     
 if __name__ == "__main__":
     discovery_nonzero_mat_filename = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery.npy'

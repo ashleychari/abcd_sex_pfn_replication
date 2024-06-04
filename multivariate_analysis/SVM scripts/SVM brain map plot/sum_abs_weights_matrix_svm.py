@@ -9,5 +9,5 @@ def create_abs_sum_matrix(matrix_filename, save_filename):
     print("Job done!")
 
 if __name__ == "__main__":
-    create_abs_sum_matrix("w_brain_sex_matrix_one_run.npy", "abs_sum_weight_brain_mat.npy")
-    create_abs_sum_matrix("w_brain_sex_matrix_one_run_replication.npy", "abs_sum_weight_brain_mat_replication.npy")
+    create_abs_sum_matrix("discovery_haufe_transformed_100_runs_weights_final.npy", "abs_sum_weight_brain_mat_discovery_haufe_100_runs.npy")
+    create_abs_sum_matrix("replication_haufe_transformed_100_runs_weights_final.npy", "abs_sum_weight_brain_mat_replication_haufe_100_runs.npy")

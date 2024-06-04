@@ -4,7 +4,8 @@ import pandas as pd
 def haufe_transform(features_path, weights_path, data_for_ridge_path, nonzero_indices, save_filename):
     features = np.load(features_path)
     targets = pd.read_csv(data_for_ridge_path)['sex']
-    targets = np.array([1 if i == "M" else -1 for i in targets]) # set Male=1, female=-1
+    # Change this so Male=-1 and female=1
+    targets = np.array([-1 if i == "M" else 1 for i in targets]) # set Male=1, female=-1
     coefs_matrix = np.load(weights_path)
     coefs = coefs_matrix.flatten()
     coefs = coefs[nonzero_indices]
@@ -31,20 +32,20 @@ def haufe_transform(features_path, weights_path, data_for_ridge_path, nonzero_in
 
 if __name__ == "__main__":
     discovery_data_for_ridge_path = '/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_removed_siblings.csv'
-    discovery_coefs_matrix_path = '/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final/w_brain_sex_matrix_100_times_discovery.npy'
+    discovery_coefs_matrix_path = '/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/w_brain_sex_matrix_100_times_discovery_final.npy'
     discovery_features_path = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery.npy'
     discovery_nonzero_index_df = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery_nonzero_indices.csv')
     discovery_nonzero_indices = discovery_nonzero_index_df['nonzero_indices'].values
+    discovery_save_filename = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/discovery_haufe_transformed_100_runs_weights_final.npy"
+    haufe_transform(discovery_features_path, discovery_coefs_matrix_path, discovery_data_for_ridge_path, discovery_nonzero_indices, discovery_save_filename)
 
-    haufe_transform(discovery_features_path, discovery_coefs_matrix_path, discovery_data_for_ridge_path, discovery_nonzero_indices, "discovery_haufe_transformed_100_runs_weights_final.npy")
-
-    # replication_data_for_ridge_path = '/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_removed_siblings.csv'
-    # replication_coefs_matrix_path = '/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/w_brain_sex_matrix_one_run_replication.npy'
-    # replication_features_path = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication.npy'
-    # replication_nonzero_index_df = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_nonzero_indices.csv')
-    # replication_nonzero_indices = replication_nonzero_index_df['nonzero_indices'].values
-
-    # haufe_transform(replication_features_path, replication_coefs_matrix_path, replication_data_for_ridge_path, replication_nonzero_indices, "replication_haufe_transformed_one_run_weights.npy")
+    replication_data_for_ridge_path = '/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_removed_siblings.csv'
+    replication_coefs_matrix_path = '/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/w_brain_sex_matrix_100_times_replication_final.npy'
+    replication_features_path = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication.npy'
+    replication_nonzero_index_df = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_nonzero_indices.csv')
+    replication_nonzero_indices = replication_nonzero_index_df['nonzero_indices'].values
+    replication_save_filename = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_final_2/replication_haufe_transformed_100_runs_weights_final.npy"
+    haufe_transform(replication_features_path, replication_coefs_matrix_path, replication_data_for_ridge_path, replication_nonzero_indices, replication_save_filename)
 
 
 

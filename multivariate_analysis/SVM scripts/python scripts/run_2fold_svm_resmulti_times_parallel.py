@@ -272,7 +272,5 @@ if __name__ == "__main__":
     replication_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_nonzero_indices.csv')
     c_range_start = int(sys.argv[1])
     c_range_end = int(sys.argv[2])
-    start_time_idx = int(sys.argv[3])
-    end_time_idx = int(sys.argv[4])
-    for time_idx in range(start_time_idx, end_time_idx):
-        svm_wrapper(c_range_start, c_range_end, time_idx)
+    time_idx = int(sys.argv[3])
+    svm_wrapper(c_range_start, c_range_end, time_idx)
