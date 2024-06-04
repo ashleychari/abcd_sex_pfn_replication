@@ -1,5 +1,6 @@
 import os
 
+# Submit jobs to do 4 iterations for each job
 for i in range(1, 101, 4):
     start_index = i
     end_index = start_index + 4

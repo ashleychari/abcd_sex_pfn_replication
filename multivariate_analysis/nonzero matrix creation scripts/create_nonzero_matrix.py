@@ -17,6 +17,7 @@ def create_matrix(data_for_ridge, save_filename):
         print(f"i: {i}, flattened_array.shape: {flattened_array.shape}")
         features.append(flattened_array)
 
+    # Identify nonzero features and subset dataframe for them
     features = np.array(features)
     features_nonzero_array = features[:, features.any(0)]
     print(f"features_nonzero_array.shape: {features_nonzero_array.shape}")
