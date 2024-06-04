@@ -86,7 +86,7 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
         sex = data_for_ridge[data_for_ridge['matched_group'] == 2]['sex'].values
     
     # Create y variable where M=-1 and female=1
-    y = np.array([-1 if i == "M" else 1 for i in sex]) # set Male=1, female=-1
+    y = np.array([-1 if i == "M" else 1 for i in sex]) 
 
     # Split data into train and test (50/50)
     indices = np.arange(len(X))
@@ -250,7 +250,7 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
     X_test_scaled = scaler.fit_transform(X_test_nuisance_removed)
     X_train_scaled = scaler.transform(X_train_nuisance_removed)
 
-     # Fit svm on test data and predict on train data
+    # Fit svm on test data and predict on train data
     print("Fitting svm....")
     clf = svm.SVC(kernel='linear', C=best_c, random_state=42)
     clf.fit(X_test_scaled, y_test)
@@ -267,13 +267,13 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
     specificity = tn / (tn+fp)
     specificities.append(specificity)
 
-    # loop through each folds coefficients and normalize them
+    # loop through each fold's coefficients and normalize them
     normalized_coefs = []
     for coef in coefs:
         coef = coef / np.linalg.norm(coef)
         normalized_coefs.append(coef)
 
-    # Return means of all the metric (except coefficients) and normalized coefficients
+    # Return means of all the metric (except coefficients) and normalized coefficients for each fold
     return np.mean(accuracies), np.mean(aucs), np.mean(fpr), np.mean(tpr), np.mean(specificities), normalized_coefs
 
 

@@ -271,7 +271,7 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
         coef = coef / np.linalg.norm(coef)
         normalized_coefs.append(coef)
 
-    # Return means of all the metrics (except coefficients) and normalized coefficients
+    # Return means of all the metrics (except coefficients) and normalized coefficients for each fold
     return np.mean(accuracies), np.mean(aucs), np.mean(fpr), np.mean(tpr), np.mean(specificities), normalized_coefs
 
 
