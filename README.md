@@ -55,8 +55,8 @@ Contains all the of the python and R scripts to transform GAMs Z vectors into un
 2. Next, run `svm_submit_batched_jobs.py`, which will create 25 jobs that go through 4 iterations of the `run_svm_2fold_resmulti_times_batched.py` script. \\
 3. Create the weight matrix by taking the mean of each of the coefficients from all the fold instances and save this weight matrix using the `svm_workbench_visualization_multi_times_matrix.py` script. \\
 4. Use the `haufe_transform_weights.py` to do a haufe transformation on the coefficients 
-5. Use this weight matrix from step 3 in the `svm_stacked_barplot.R` script to get the stacked barplot of feature importance for both Males and Females \\
-6. Use the weight matrix in the `sum_abs_weights_matrix.py` to get the absolute value sum of the weights and save this array \\
+5. Use this weight matrix from step 4 in the `svm_stacked_barplot.R` script to get the stacked barplot of feature importance for both Males and Females \\
+6. Use the haufe transformed weight matrix in the `sum_abs_weights_matrix.py` to get the absolute value sum of the weights and save this array \\
 7. Take the saved array and run the `abs_sum_weights_to_cifti.R` script to convert the matrix to a dscalar.nii file that can be visualized via workbench
 
 # Location of files
