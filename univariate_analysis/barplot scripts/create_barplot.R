@@ -10,8 +10,10 @@ theme_set(theme_classic(base_size = 16))
 #read in brain data
 #data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/barplot_all_networks_mat.csv")
 #data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/barplot_all_networks_replication_mat.csv")
-data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/replication_barplot_all_networks_mat.csv")
+#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/replication_barplot_all_networks_mat.csv")
 #data_brain2 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/Sex_effects_matrix.csv")
+#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis_redo/discovery_barplot_all_networks_mat.csv")
+data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis_redo/replication_barplot_all_networks_mat.csv")
 data_brain <-data_brain1
 
 #function to sum negative vertecies
