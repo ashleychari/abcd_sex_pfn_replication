@@ -132,7 +132,7 @@ def run_2fold_svm(matrix_filename, data_for_ridge, C_range):
 
     # Repeat 2 fold cross validation with train and test as a fold each
     results_dict = {'coefs': [], 'accuracies': [], 'aucs': [], 'decision_values': [],
-                    'subject_ids_in_order': [], 'specificites': []}
+                    'subject_ids_in_order': [], 'specificities': []}
     
     # Train as trainset then test as testset for fold 1
     best_c_fold1 = c_param_search(X_train, y_train, covariates, indices_train, random_state_seed, C_range)
