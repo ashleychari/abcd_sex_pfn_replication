@@ -19,3 +19,4 @@
 /atlas_visualization/*
 !/atlas_visualization/*.py
 commands_run.txt
+*.ipynb
