@@ -42,7 +42,10 @@ def add_covariates(data_for_ridge):
 
     return covariates
 
-
+'''
+Function to conduct c parameter search over given training data
+outputs: C that gave the highest accuracy
+'''
 def c_param_search(X_train, y_train, covariates, covariate_indices, random_state_seed, C_range):
     cs = []
     average_accuracies = []
@@ -83,6 +86,11 @@ def c_param_search(X_train, y_train, covariates, covariate_indices, random_state
     best_c = cs[best_c_ind]
     return best_c
 
+
+'''
+Primary function to train, test, and evaluate the svm model
+Outputs: Updated results dictionary with coefficients, accuracies, aucs, decision values, subject ids, and specificities
+'''
 def train_svm(X_train, y_train, X_test, y_test, covariates, indices_train, indices_test, best_c, subject_ids, results_dict):
     nuisance_model = LinearRegression()
     nuisance_train = covariates[indices_train]
@@ -109,7 +117,9 @@ def train_svm(X_train, y_train, X_test, y_test, covariates, indices_train, indic
     results_dict['specificities'].append(specificity)
     return results_dict
 
-
+'''
+Wrapper function that calls other primary functions to run svm
+'''
 def run_network_specific_svm(matrix_filename, data_for_ridge, C_range):
     features_nonzero_matrix = load_nonzero_mat(matrix_filename)
 
@@ -150,6 +160,9 @@ def run_network_specific_svm(matrix_filename, data_for_ridge, C_range):
 
     return np.mean(results_dict['accuracies']), np.mean(results_dict['aucs']), np.mean(results_dict['specificities']), results_dict['decision_values'], results_dict['subject_ids_in_order'], normalized_coefs, random_state_seed
 
+'''
+
+'''
 def create_subject_id_tables(subject_ids, dataset_label):
     subject_ids_fold1 = list(subject_ids[0])
     subject_ids_fold2 = list(subject_ids[1])

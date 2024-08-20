@@ -20,7 +20,7 @@ def create_abs_sum_mat(results_folder, save_filename, sample_type):
 
 
 if __name__ == "__main__":
-    create_abs_sum_mat("discovery_univariate_sex_effects_siblings_removed", "discovery_barplot_all_networks_mat.csv", 
+    create_abs_sum_mat("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/discovery/gams_sex_effects_siblings_removed", "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/discovery_barplot_all_networks_mat.csv", 
                        "discovery")
-    create_abs_sum_mat("replication_univariate_sex_effects_siblings_removed", "replication_barplot_all_networks_mat.csv", 
+    create_abs_sum_mat("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/replication/gams_sex_effects_siblings_removed", "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/replication_barplot_all_networks_mat.csv", 
                        "replication")

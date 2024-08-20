@@ -13,7 +13,11 @@ theme_set(theme_classic(base_size = 16))
 #data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/replication_barplot_all_networks_mat.csv")
 #data_brain2 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/Sex_effects_matrix.csv")
 #data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis_redo/discovery_barplot_all_networks_mat.csv")
-data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis_redo/replication_barplot_all_networks_mat.csv")
+#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis_redo/replication_barplot_all_networks_mat.csv")
+#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis/discovery_univariate_barplot_all_networks_mat.csv")
+#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/discovery_barplot_all_networks_mat.csv")
+data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/replication_barplot_all_networks_mat.csv")
+#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis/replication_univariate_barplot_all_networks_mat.csv")
 data_brain <-data_brain1
 
 #function to sum negative vertecies
@@ -78,6 +82,8 @@ sums_all_col_rank <- sums_all_col_rank %>%
   arrange (netrank)
 
 colormap=sums_all_col_rank %>% select(network,netColorF)%>%unique()
+
+write.csv(sums_all_col_rank, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/figure_s8_barplots/network_tables/gams_discovery_network_sums_table.csv")
 
 
 #ggplot(sums_all_col_rank, aes(x=network, y=vertecies, fill=sex)) + geom_bar(position = "dodge", stat="identity") + scale_fill_manual(values = colormap$netColorF)

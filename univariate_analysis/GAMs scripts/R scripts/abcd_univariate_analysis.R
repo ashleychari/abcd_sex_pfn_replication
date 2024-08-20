@@ -37,9 +37,9 @@ create_results_vec <- function(vec_to_save, nonzero_column_index, features_quant
 }
 
 main <- function(){
-    RESULTS_FOLDER <- "/cbica/projects/ash_pfn_sex_diff_abcd/results/discovery/GamAnalysis/univariate_sex_effects_siblings_removed"
+    RESULTS_FOLDER <- "/cbica/projects/ash_pfn_sex_diff_abcd/results/univariate_analysis/discovery/gams_sex_effects_siblings_removed"
     # NEED BEHAVIOR NEW DISCOVERY FILE READ IN (ask arielle)
-    behavior_new <- create_behavior_df("/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_removed_siblings.csv")
+    behavior_new <- create_behavior_df("/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_siblings_removed_071524.csv")
 
     # Setup for matrices
     subjects_quantity <- nrow(behavior_new) # data for ridge subset has this many patients, 3240

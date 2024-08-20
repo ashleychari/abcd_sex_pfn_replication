@@ -158,7 +158,7 @@ def run_2fold_svm(matrix_filename, data_for_ridge, C_range):
     return results_dict['decision_values'], results_dict['predicted_values'], results_dict['subject_ids_in_order'], normalized_coefs, random_state_seed
 
 
-def svm_wrapper(c_range_start, c_range_end, idx_time, results_folder):
+def svm_wrapper(c_range_start, c_range_end, idx_time, results_folder, discovery_nonzero_mat_filename, replication_nonzero_mat_filename, discovery_data_for_ridge, replication_data_for_ridge):
     if os.path.isdir(f"{results_folder}/time_{idx_time}") == False:
         os.mkdir(f"{results_folder}/time_{idx_time}")
 
@@ -174,7 +174,9 @@ def svm_wrapper(c_range_start, c_range_end, idx_time, results_folder):
     #metrics_table['auc'] = [auc_discovery, auc_replication]
     #metrics_table['specificity'] = [specificity_discovery, specificity_replication]
     metrics_table['random_state'] = [random_state_seed_discovery, random_state_seed_replication]
+    print("Saving metrics table....")
     metrics_table.to_csv(f"{results_folder}/time_{idx_time}/2foldcv_metrics_table.csv")
+    print("Saving decision and predicted values....")
     # Save decision values for discovery set
     np.save(f"{results_folder}/time_{idx_time}/discovery_decision_values_2_folds", np.array(decision_values_discovery))
 
@@ -192,6 +194,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time, results_folder):
     # Save subject ids for both folds for discovery
     # make sure lists are the same len
     ### Move into a function #####
+    print("Saving subject ids for discovery....")
     subject_ids_discovery_fold1 = list(subject_ids_discovery[0])
     subject_ids_discovery_fold2 = list(subject_ids_discovery[1])
     if len(subject_ids_discovery_fold1) != len(subject_ids_discovery_fold2):
@@ -219,6 +222,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time, results_folder):
     # Save subject ids for both folds for replication
     # make sure lists are the same len
     ### move into function ####
+    print("Saving subject ids for replication....")
     subject_ids_replication_fold1 = list(subject_ids_replication[0])
     subject_ids_replication_fold2 = list(subject_ids_replication[1])
     if len(subject_ids_replication_fold1) != len(subject_ids_replication_fold2):
@@ -243,7 +247,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time, results_folder):
     subject_id_table_replication.to_csv(f"{results_folder}/time_{idx_time}/replication_subject_ids_2_folds.csv")
 
 
-
+    print("Saving coefs....")
     coefs_discovery_table = pd.DataFrame()
     i = 1
     for coef_fold in coefs_discovery:
@@ -268,12 +272,10 @@ if __name__ == "__main__":
     replication_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_siblings_removed_071524.csv')
     discovery_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery_siblings_removed_nonzero_indices.csv')
     replication_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_siblings_removed_nonzero_indices.csv')
-    results_folder = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/permutation_1000_times_072424"
+    results_folder = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/permutation_1000_times_081524"
     # Get user input
     c_range_start = int(sys.argv[1])
     c_range_end = int(sys.argv[2])
-    start_time_idx = int(sys.argv[3])
-    end_time_idx = int(sys.argv[4])
-    for time_idx in range(start_time_idx, end_time_idx):
-        # Run 2fold svm
-        svm_wrapper(c_range_start, c_range_end, time_idx, results_folder)
+    time_idx = int(sys.argv[3])
+    # Run 2fold svm
+    svm_wrapper(c_range_start, c_range_end, time_idx, results_folder, discovery_nonzero_mat_filename, replication_nonzero_mat_filename, discovery_data_for_ridge, replication_data_for_ridge)

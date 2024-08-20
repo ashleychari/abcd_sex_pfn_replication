@@ -1,0 +1,21 @@
+/spin_tests/data
+/spin_tests/results
+/univariate_analysis/univariate_analysis_results/
+/univariate_analysis/individual network scripts/*
+!/univariate_analysis/individual network scripts/*.py
+*.csv
+*.png
+/genetics/gams_gii_files/
+*.xls
+/genetics/top20_enrichment_tables/
+*.gii 
+/hex_plots/plots/
+/high_res_figs/
+/multivariate_analysis/svm_072324_run/
+/genetics/old_files/
+/old_results/
+/figure_s8_barplots/*
+!/figure_s8_barplots/*.py
+/atlas_visualization/*
+!/atlas_visualization/*.py
+commands_run.txt

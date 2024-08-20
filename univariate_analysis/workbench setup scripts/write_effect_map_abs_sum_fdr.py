@@ -10,7 +10,7 @@ def create_abs_sum_mat(results_folder, sample_type, save_filename):
         else:
             result_filename = f"{results_folder}/SexEffect_AtlasLoading_Replication_17_Network_{network}.csv"
         network_matrix = pd.read_csv(result_filename)
-        network_matrix = network_matrix['Gam_Z_Vector_All']
+        network_matrix = network_matrix['Gam_Z_FDR_Sig_Vector_All']
         all_z_vectors[f"network_{network}"] = abs(network_matrix)
         network += 1
         
@@ -22,9 +22,9 @@ def create_abs_sum_mat(results_folder, sample_type, save_filename):
 
 if __name__ == "__main__":
     create_abs_sum_mat("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/discovery/gams_sex_effects_siblings_removed", "discovery",
-                        "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.csv")
+                        "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/fdr_abs_sum_matrix_discovery.csv")
     create_abs_sum_mat("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/replication/gams_sex_effects_siblings_removed", "replication",
-                        "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_replication.csv")
+                        "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/fdr_abs_sum_matrix_replication.csv")
 
 
 
