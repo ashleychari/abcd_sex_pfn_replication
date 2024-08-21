@@ -20,3 +20,5 @@
 !/atlas_visualization/*.py
 commands_run.txt
 *.ipynb
+*.npy
+/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/SVM accuracy histogram/permutation_1000_times_081524/
