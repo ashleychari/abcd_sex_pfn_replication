@@ -8,8 +8,12 @@ import sys
 if __name__ == "__main__":
     data_filepath = sys.argv[1]
     save_filepath = sys.argv[2]
+    is_PNC = sys.argv[3]
 
-    if data_filepath.split(".")[1] == "csv":
+    if data_filepath.split(".")[1] == "csv" and is_PNC == "N":
+        abs_sum_mat = pd.read_csv(data_filepath)
+        print(abs_sum_mat)
+    elif data_filepath.split(".")[1] == "csv" and is_PNC == "Y":
         abs_sum_mat = pd.read_csv(data_filepath, header=None)
     else:
         abs_sum_mat = np.load(data_filepath)
