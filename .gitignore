@@ -16,6 +16,7 @@
 /old_results/
 /figure_s8_barplots/*
 !/figure_s8_barplots/*.py
+!/figure_s8_barplots/*.R
 /atlas_visualization/*
 !/atlas_visualization/*.py
 commands_run.txt
