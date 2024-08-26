@@ -1,8 +1,9 @@
 import pandas as pd
 import os
+import sys
 
 if __name__ == "__main__":
-    spin_results_folder = "spin_test_check"
+    spin_results_folder = sys.argv[1]
     results_dfs = []
     for results_file in os.listdir(spin_results_folder):
         # check extension
