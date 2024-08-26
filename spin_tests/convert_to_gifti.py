@@ -10,13 +10,13 @@ if __name__ == "__main__":
     save_filepath = sys.argv[2]
 
     if data_filepath.split(".")[1] == "csv":
-        abs_sum_mat = pd.read_csv(data_filepath)
+        abs_sum_mat = pd.read_csv(data_filepath, header=None)
     else:
         abs_sum_mat = np.load(data_filepath)
 
     data = nib.gifti.gifti.GiftiImage()
     if data_filepath.split(".")[1] == "csv":
-        abs_sum_float32 = [np.float32(val) for val in abs_sum_mat['V1'].values]
+        abs_sum_float32 = [np.float32(val) for val in abs_sum_mat[abs_sum_mat.columns[0]].values]
     else:
         abs_sum_float32 = [np.float32(val) for val in abs_sum_mat]
 
