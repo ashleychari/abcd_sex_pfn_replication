@@ -33,7 +33,7 @@ if __name__ == "__main__":
     print(f"File saved to {save_filepath}!")
     
     # Save command run into commands_run file
-    command_run = f"python3 convert_to_gifti.py '{data_filepath}' '{save_filepath}'\n" 
+    command_run = f"python3 convert_to_gifti.py '{data_filepath}' '{save_filepath}' {is_PNC}\n" 
     f = open("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/commands_run.txt", "a+")
     f.write(command_run)
     f.close()
