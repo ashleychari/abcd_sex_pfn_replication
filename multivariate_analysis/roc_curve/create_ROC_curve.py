@@ -113,21 +113,32 @@ def plot_ROC_curve(sex, decision_values_df, save_filepath):
     print(f"AUC: {roc_auc}")
     display = RocCurveDisplay(fpr=fpr, tpr=tpr)
     display.plot()
+    plt.rcParams.update({'font.size': 16})
     plt.legend().remove()
     plt.savefig(save_filepath)
+    return roc_auc
 
 
 
 if __name__ == "__main__":
-    #discovery_data_for_ridge = pd.read_csv("discovery_sample_siblings_removed_071524.csv")
-    res_multitimes_path = "res_100_times_roc_072324"
-    # save_filepath = "svm_072324_run/discovery_svm_ROC_siblings_removed.png"
-    # discovery_decision_df, sex = create_decision_df(discovery_data_for_ridge, res_multitimes_path)
-    # plot_ROC_curve(sex, discovery_decision_df, save_filepath)
+    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/res_100_times_roc_072324"
 
-    replication_data_for_ridge = pd.read_csv("replication_sample_siblings_removed_071524.csv")
-    save_filepath_replication = "svm_072324_run/replication_svm_ROC_siblings_removed.png"
+    discovery_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/discovery_sample_siblings_removed_071524.csv")
+    save_filepath = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/high_res_figs/multipanel_figures/discovery_svm_ROC_siblings_removed_adjusted_font.png"
+    discovery_decision_df, sex = create_decision_df(discovery_data_for_ridge, res_multitimes_path)
+    discovery_auc = plot_ROC_curve(sex, discovery_decision_df, save_filepath)
+
+    replication_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/replication_sample_siblings_removed_071524.csv")
+    save_filepath_replication = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/high_res_figs/multipanel_figures/replication_svm_ROC_siblings_removed_adjusted_font.png"
     replication_decision_df, rep_sex = create_decision_df_replication(replication_data_for_ridge, res_multitimes_path)
-    plot_ROC_curve(rep_sex, replication_decision_df, save_filepath_replication)
+    replication_auc = plot_ROC_curve(rep_sex, replication_decision_df, save_filepath_replication)
+
+    auc_scores = pd.DataFrame()
+    auc_scores['set'] = ['discovery', 'replication']
+    auc_scores['auc'] = [discovery_auc, replication_auc]
+
+    auc_scores.to_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/final_stats/auc_scores_svm_100_runs_072324.csv")
+
+
 
 
