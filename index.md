@@ -94,9 +94,11 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   sbatch svm_permutation_parallel.sh
   ```
 
-  10. To generate the ROC curve as seen in Figure 3A, run the [create_ROC_curve.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/roc_curve/create_ROC_curve.py) with the results from the 100 runs and use the [plot_roc.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/roc_curve/plot_roc.R) to make Figure 3A. 
+  10. To generate the permutation inset histogram as seen in Figure 3A, use the [get_accuracies.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20accuracy%20histogram/get_accuracies.py) script to compile the accuracies from the 1000 runs followed by the [svm_accuracy_histogram.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20accuracy%20histogram/svm_accuracy_histogram.R) to make the histogram plots.
 
-  11. To get the support vector machine stats such as average accuracy, average sensitivity, and average specificity use the [get_svm_metrics.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20accuracy%20histogram/get_svm_metrics.py) script.
+  11. To generate the ROC curve as seen in Figure 3A, run the [create_ROC_curve.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/roc_curve/create_ROC_curve.py) with the results from the 100 runs and use the [plot_roc.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/roc_curve/plot_roc.R) to make Figure 3A. 
+
+  12. To get the support vector machine stats such as average accuracy, average sensitivity, and average specificity use the [get_svm_metrics.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20accuracy%20histogram/get_svm_metrics.py) script.
 
 ### Part 5: Genetics
   > The files generated from the steps below will be used in the enrichement analyses.
