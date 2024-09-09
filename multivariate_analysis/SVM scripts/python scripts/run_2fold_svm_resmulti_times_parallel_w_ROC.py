@@ -45,8 +45,8 @@ def c_param_search(X_train, y_train, covariates, covariate_indices, random_state
     average_accuracies = []
     covariates_train = covariates[covariate_indices]
 
-    for i in C_range:
-        cs.append(i)
+    for c_val in C_range:
+        cs.append(c_val)
         fold_accuracies = []
         k_folds = KFold(n_splits=2, shuffle=True, random_state=random_state_seed) 
         for train_indices, val_indices in k_folds.split(X_train):
@@ -68,7 +68,7 @@ def c_param_search(X_train, y_train, covariates, covariate_indices, random_state
             X_val_scaled = scaler.transform(X_val_nuisance_removed)
 
             print("Fitting svm....")
-            clf = svm.SVC(kernel='linear', C=i, random_state=42)
+            clf = svm.SVC(kernel='linear', C=c_val, random_state=42)
             clf.fit(X_train_scaled, y_train_cv)
             y_pred = clf.predict(X_val_scaled)
             fold_accuracies.append(accuracy_score(y_val_cv, y_pred))
@@ -97,18 +97,19 @@ def train_svm(X_train, y_train, X_test, y_test, covariates, indices_train, indic
     clf.fit(X_train_scaled, y_train)
     results_dict['coefs'].append(list(clf.coef_[0]))
     y_pred = clf.predict(X_test_scaled)
-    results_dict['accuracies'].append(accuracy_score(y_test, y_pred))
-    results_dict['aucs'].append(roc_auc_score(y_test, clf.decision_function(X_test_scaled)))
+    results_dict['predicted_values'].append(y_pred)
+    # results_dict['accuracies'].append(accuracy_score(y_test, y_pred))
+    # results_dict['aucs'].append(roc_auc_score(y_test, clf.decision_function(X_test_scaled)))
     results_dict['decision_values'].append(clf.decision_function(X_test_scaled))
     results_dict['subject_ids_in_order'].append(np.array(subject_ids)[indices_test])
-    tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
-    specificity = tn / (tn+fp)
-    results_dict['specificities'].append(specificity)
+    # tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+    # specificity = tn / (tn+fp)
+    # results_dict['specificities'].append(specificity)
     return results_dict
 
 # change parameters here
 # data for ridge will be either discovery or replication data
-def run_2fold_svm(matrix_filename, data_for_ridge, C_range):
+def run_2fold_svm(matrix_filename, data_for_ridge, C_range, time_idx):
     features_nonzero_matrix = load_nonzero_mat(matrix_filename)
 
     # change function call
@@ -119,20 +120,26 @@ def run_2fold_svm(matrix_filename, data_for_ridge, C_range):
     # regress covariates out of features
     subject_ids = covariates['subject_id'].values
     covariates = covariates.drop(['subject_id'], axis=1)
-    covariates = np.array(covariates)
 
     # Create y variable
+    # sex_map = {"M": -1, "F": 1}
+    # covariates['y'] = data_for_ridge['sex'].map(sex_map)
+    # y = covariates['y'].values
     sex = data_for_ridge['sex'].values
-    y = np.array([-1 if i == "M" else 1 for i in sex]) # set Male=1, female=-1
+    y = np.array([-1 if i == "M" else 1 for i in sex])
+
+    # Convert covariates to numpy array for easier indexing
+    covariates = np.array(covariates)
+
 
     # Split data into train and test
-    random_state_seed = random.randint(0, 1000)
+    random_state_seed = time_idx
     indices = np.arange(len(X))
     X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(X, y, indices, test_size=0.5, random_state=random_state_seed)
 
     # Repeat 2 fold cross validation with train and test as a fold each
-    results_dict = {'coefs': [], 'accuracies': [], 'aucs': [], 'decision_values': [],
-                    'subject_ids_in_order': [], 'specificities': []}
+    results_dict = {'coefs': [], 'decision_values': [],
+                    'subject_ids_in_order': [], 'predicted_values':[]}
     
     # Train as trainset then test as testset for fold 1
     best_c_fold1 = c_param_search(X_train, y_train, covariates, indices_train, random_state_seed, C_range)
@@ -148,29 +155,39 @@ def run_2fold_svm(matrix_filename, data_for_ridge, C_range):
         coef = coef / np.linalg.norm(coef)
         normalized_coefs.append(coef)
 
-    return np.mean(results_dict['accuracies']), np.mean(results_dict['aucs']), np.mean(results_dict['specificities']), results_dict['decision_values'], results_dict['subject_ids_in_order'], normalized_coefs, random_state_seed
+    return results_dict['decision_values'], results_dict['predicted_values'], results_dict['subject_ids_in_order'], normalized_coefs, random_state_seed
 
 
-def svm_wrapper(c_range_start, c_range_end, idx_time):
-    if os.path.isdir(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}") == False:
-        os.mkdir(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}")
+def svm_wrapper(c_range_start, c_range_end, idx_time, results_folder):
+    if os.path.isdir(f"{results_folder}/time_{idx_time}") == False:
+        os.mkdir(f"{results_folder}/time_{idx_time}")
 
     c_range = range(c_range_start, c_range_end)
-    c_values = [2**i for i in c_range]
-    accuracy_discovery, auc_discovery, specificity_discovery, decision_values_discovery, subject_ids_discovery, coefs_discovery, random_state_seed_discovery = run_2fold_svm(discovery_nonzero_mat_filename, discovery_data_for_ridge, c_values)
-    accuracy_replication, auc_replication, specificity_replication, decision_values_replication, subject_ids_replication, coefs_replication, random_state_seed_replication = run_2fold_svm(replication_nonzero_mat_filename, replication_data_for_ridge, c_values)
+    c_values = [2**c for c in c_range]
+    decision_values_discovery, predicted_values_discovery, subject_ids_discovery, coefs_discovery, random_state_seed_discovery = run_2fold_svm(discovery_nonzero_mat_filename, discovery_data_for_ridge, c_values, idx_time)
+    decision_values_replication, predicted_values_replication, subject_ids_replication, coefs_replication, random_state_seed_replication = run_2fold_svm(replication_nonzero_mat_filename, replication_data_for_ridge, c_values, idx_time)
+    # accuracy_discovery, auc_discovery, specificity_discovery, decision_values_discovery, subject_ids_discovery, coefs_discovery, random_state_seed_discovery = run_2fold_svm(discovery_nonzero_mat_filename, discovery_data_for_ridge, c_values)
+    # accuracy_replication, auc_replication, specificity_replication, decision_values_replication, subject_ids_replication, coefs_replication, random_state_seed_replication = run_2fold_svm(replication_nonzero_mat_filename, replication_data_for_ridge, c_values)
     metrics_table = pd.DataFrame()
     metrics_table['set'] = ['discovery', 'replication']
-    metrics_table['accuracy'] = [accuracy_discovery, accuracy_replication]
-    metrics_table['auc'] = [auc_discovery, auc_replication]
-    metrics_table['specificity'] = [specificity_discovery, specificity_replication]
+    #metrics_table['accuracy'] = [accuracy_discovery, accuracy_replication]
+    #metrics_table['auc'] = [auc_discovery, auc_replication]
+    #metrics_table['specificity'] = [specificity_discovery, specificity_replication]
     metrics_table['random_state'] = [random_state_seed_discovery, random_state_seed_replication]
-    metrics_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}/2foldcv_metrics_table.csv")
+    metrics_table.to_csv(f"{results_folder}/time_{idx_time}/2foldcv_metrics_table.csv")
     # Save decision values for discovery set
-    np.save(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}/discovery_decision_values_2_folds", np.array(decision_values_discovery))
+    np.save(f"{results_folder}/time_{idx_time}/discovery_decision_values_2_folds", np.array(decision_values_discovery))
 
     # Save decision values for replication set
-    np.save(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}/replication_decision_values_2_folds", np.array(decision_values_replication))
+    np.save(f"{results_folder}/time_{idx_time}/replication_decision_values_2_folds", np.array(decision_values_replication))
+
+    # Save predicted values for discovery set
+    np.save(f"{results_folder}/time_{idx_time}/discovery_predicted_values_2_folds", np.array(predicted_values_discovery))
+
+    # Save predicted values for replication set
+    np.save(f"{results_folder}/time_{idx_time}/replication_predicted_values_2_folds", np.array(predicted_values_replication))
+
+
 
     # Save subject ids for both folds for discovery
     # make sure lists are the same len
@@ -196,7 +213,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
     subject_id_table_discovery = pd.DataFrame()
     subject_id_table_discovery['fold1_ids'] = subject_ids_discovery_fold1
     subject_id_table_discovery['fold2_ids'] = subject_ids_discovery_fold2
-    subject_id_table_discovery.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}/discovery_subject_ids_2_folds.csv")
+    subject_id_table_discovery.to_csv(f"{results_folder}/time_{idx_time}/discovery_subject_ids_2_folds.csv")
 
 
     # Save subject ids for both folds for replication
@@ -223,7 +240,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
     subject_id_table_replication = pd.DataFrame()
     subject_id_table_replication['fold1_ids'] = subject_ids_replication_fold1
     subject_id_table_replication['fold2_ids'] = subject_ids_replication_fold2
-    subject_id_table_replication.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}/replication_subject_ids_2_folds.csv")
+    subject_id_table_replication.to_csv(f"{results_folder}/time_{idx_time}/replication_subject_ids_2_folds.csv")
 
 
 
@@ -232,7 +249,7 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
     for coef_fold in coefs_discovery:
         coefs_discovery_table[f"fold_{i}_coefs"] = coef_fold
         i += 1
-    coefs_discovery_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}/2foldcv_discovery_coefs.csv")
+    coefs_discovery_table.to_csv(f"{results_folder}/time_{idx_time}/2foldcv_discovery_coefs.csv")
 
     coefs_replication_table = pd.DataFrame()
     i = 1
@@ -240,16 +257,17 @@ def svm_wrapper(c_range_start, c_range_end, idx_time):
         coefs_replication_table[f"fold_{i}_coefs"] = coef_fold
         i += 1
         
-    coefs_replication_table.to_csv(f"/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_refactored/time_{idx_time}/2foldcv_replication_coefs.csv")
+    coefs_replication_table.to_csv(f"{results_folder}/time_{idx_time}/2foldcv_replication_coefs.csv")
     
 if __name__ == "__main__":
-    discovery_nonzero_mat_filename = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery.npy'
-    replication_nonzero_mat_filename = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication.npy'
-    discovery_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_removed_siblings.csv')
-    replication_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_removed_siblings.csv')
-    discovery_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery_nonzero_indices.csv')
-    replication_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_nonzero_indices.csv')
+    discovery_nonzero_mat_filename = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery_siblings_removed.npy'
+    replication_nonzero_mat_filename = '/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_siblings_removed.npy'
+    discovery_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_siblings_removed_071524.csv')
+    replication_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_siblings_removed_071524.csv')
+    discovery_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery_siblings_removed_nonzero_indices.csv')
+    replication_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_siblings_removed_nonzero_indices.csv')
+    results_folder = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_090624"
     c_range_start = int(sys.argv[1])
     c_range_end = int(sys.argv[2])
     time_idx = int(sys.argv[3])
-    svm_wrapper(c_range_start, c_range_end, time_idx)
+    svm_wrapper(c_range_start, c_range_end, time_idx, results_folder)

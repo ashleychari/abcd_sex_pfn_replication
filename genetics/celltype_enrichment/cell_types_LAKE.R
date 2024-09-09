@@ -22,10 +22,10 @@ colnames(lh_schaefer1000_ct_500) <- "V1"
 setDT(lh_schaefer1000_ct_500, keep.rownames = "parcNum")
 
 # brain imaging data
-#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_discovery_LH.fsaverage5.func.gii')
+data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_discovery_LH.fsaverage5.func.gii')
 #data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_replication_LH.fsaverage5.func.gii')
 #data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_discovery_LH.fsaverage5.func.gii')
-data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_replication_LH.fsaverage5.func.gii')
+#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_replication_LH.fsaverage5.func.gii')
 data_brain <- data_brain1$data$normal
 
 
@@ -265,14 +265,15 @@ overall_se <- std.error(df3$corrSigRanked)
 
 p<-ggplot(data=t9, aes(x=cellType, y=Rank)) +
   geom_bar(stat="identity", fill=colormap$fillcolor ,
-           colour = bordermap$BorderColor, linetype = linemap$LineType, width = 0.8) + geom_errorbar(aes(ymin=Rank-se, ymax=Rank+se), width=0, linetype = linemap$LineType, position=position_dodge(.9)) +
+           colour = bordermap$BorderColor, linetype = linemap$LineType, width = 0.8) + geom_pointrange(aes(ymin=Rank-se, ymax=Rank+se), size=0, linetype = linemap$LineType, position=position_dodge(.9)) +
   geom_point(data=t9, aes(y=Rank, x=cellType), size = 0.8) +
   coord_flip() + xlab("Cell Type") + ylab("Enrichment") +
   geom_hline(aes(yintercept = as.numeric(0))) +
   #ylim(-2799, 1010) +
   #scale_y_discrete(breaks = c(-2000, -1000, 1000)) +
-  theme(legend.position="none") + theme(axis.text.x = element_text(size= 10), axis.text.y = element_text(size= 10, color = "grey30"), axis.title=element_text(size = 12))
-p
+  theme(legend.position="none") + theme(axis.text.x = element_text(size= 10), axis.text.y = element_text(size= 10, color = "grey30"), axis.title=element_text(size = 18))
+
+ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/genetics/cell_type_enrichments/high_res/gams_uncorrected_discovery.png", height=5, width=5, dpi=300)
 
 
 

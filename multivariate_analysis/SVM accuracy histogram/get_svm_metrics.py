@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score, confusion_matrix
+import scipy.stats as st
 
 def get_metrics(data_for_ridge, results_folder, set):
     # Use the data for ridge discovery subject ids as the ordering for the ids
@@ -37,7 +38,7 @@ def get_metrics(data_for_ridge, results_folder, set):
 
         # Loop through data for ridge ids and get decision values in order
         #print(time_decision_values_df)
-        print("Reordering predicted values....")
+        #print("Reordering predicted values....")
         predicted_values_in_order = []
         for subject_id in data_for_ridge_subject_ids:
             #print(subject_id)
@@ -57,7 +58,7 @@ def get_metrics(data_for_ridge, results_folder, set):
         specificity = tn / (tn + fp)
         specificity_all_runs.append(specificity)
 
-        return accuracies_all_runs, sensitivity_all_runs, specificity_all_runs
+    return accuracies_all_runs, sensitivity_all_runs, specificity_all_runs
     
 def make_avg_table(save_file, set_order, accuracies, sensitivities, specificities):
     avg_table = pd.DataFrame()
@@ -70,14 +71,18 @@ def make_avg_table(save_file, set_order, accuracies, sensitivities, specificitie
 
     
 if __name__ == "__main__":
-    discovery_data_for_ridge = pd.read_csv("discovery_sample_siblings_removed_071524.csv")
-    res_multitimes_path = "res_100_times_roc_072324"
-    avg_table_filename = "svm_072324_run/svm_100_times_072324_metrics.csv"
+    discovery_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/discovery_sample_siblings_removed_071524.csv")
+    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/res_100_times_roc_090624"
+    avg_table_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_090624_run/svm_100_times_090624_metrics.csv"
     accuracies_disc, sensitivity_disc, specificity_disc = get_metrics(discovery_data_for_ridge, res_multitimes_path, "discovery")
+    #print(accuracies_disc)
+    print(f"Discovery - avg acc: {np.mean(accuracies_disc)}, CI: {st.t.interval(confidence=0.95, df=len(accuracies_disc)-1, loc=np.mean(accuracies_disc), scale=st.sem(accuracies_disc))}")
 
-    replication_data_for_ridge = pd.read_csv("replication_sample_siblings_removed_071524.csv")
-    res_multitimes_path = "res_100_times_roc_072324"
+
+    replication_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/replication_sample_siblings_removed_071524.csv")
+    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/res_100_times_roc_090624"
     accuracies_rep, sensitivity_rep, specificity_rep = get_metrics(replication_data_for_ridge, res_multitimes_path, "replication")
+    print(f"Replication - avg acc: {np.mean(accuracies_rep)}, CI: {st.t.interval(confidence=0.95, df=len(accuracies_rep)-1, loc=np.mean(accuracies_rep), scale=st.sem(accuracies_rep))}")
 
     accuracies_100 = [np.mean(accuracies_disc), np.mean(accuracies_rep)]
     sensitivity_100 = [np.mean(sensitivity_disc), np.mean(sensitivity_rep)]

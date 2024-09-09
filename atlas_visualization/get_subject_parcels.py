@@ -23,9 +23,13 @@ def get_subjects(discovery_data, replication_data):
     return all_subjects
 
 # Function to save data to a CIFTI file format
-def save_to_cifti(parcels, save_filename):
+def save_to_cifti(parcels, save_filename, file_type):
     # Load a template CIFTI file
-    working_cifti_file = nib.load("/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/uncorrected_abs_sum_matrix_discovery.dscalar.nii")
+    if file_type == "dscalar.nii":
+        working_cifti_file = nib.load("/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/uncorrected_abs_sum_matrix_discovery.dscalar.nii")
+    else:
+        working_cifti_file = nib.load("/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/hardparcel_group.dlabel.nii")
+
     cifti_header = working_cifti_file.header
 
     # Create a new CIFTI image with the provided parcels and header
@@ -53,10 +57,10 @@ def get_soft_parcel(network, subjects):
     for subject, soft_parcel_network in soft_parcel_networks.items():
         soft_parcel_array = np.zeros((1, 59412))
         soft_parcel_array[0, :] = soft_parcel_network
-        cifti_filename = f"/cbica/projects/ash_pfn_sex_diff_abcd/results/atlas_visualization/subject_networks_mf/network_{network}_softparcel_subjectid_{subject}.dscalar.nii"
-        save_to_cifti(soft_parcel_array, cifti_filename)
+        cifti_filename = f"/cbica/projects/ash_pfn_sex_diff_abcd/results/atlas_visualization/subject_networks_mf_2/network_{network}_softparcel_subjectid_{subject}.dscalar.nii"
+        save_to_cifti(soft_parcel_array, cifti_filename, "dscalar.nii")
 
-    print(f"Files for network {network} saved to /cbica/projects/ash_pfn_sex_diff_abcd/results/atlas_visualization/subject_networks_mf/")
+    print(f"Files for network {network} saved to /cbica/projects/ash_pfn_sex_diff_abcd/results/atlas_visualization/subject_networks_mf_2/")
 
 # Function to create hard parcel data from subject matrix
 def create_hard_parcel_mat(subject_mat):
@@ -102,10 +106,10 @@ def get_hard_parcel(network, subjects):
 
     # Save each subject's hard parcel data as a CIFTI file
     for subject, hard_parcel_network in subject_hardparcel_dict.items():
-        hard_parcel_filename = f'/cbica/projects/ash_pfn_sex_diff_abcd/results/atlas_visualization/subject_networks_mf/network_{network}_hardparcel_subjectid_{subject}.dscalar.nii'
-        save_to_cifti(hard_parcel_network, hard_parcel_filename)
+        hard_parcel_filename = f'/cbica/projects/ash_pfn_sex_diff_abcd/results/atlas_visualization/subject_networks_mf_2/network_{network}_hardparcel_subjectid_{subject}.dlabel.nii'
+        save_to_cifti(hard_parcel_network, hard_parcel_filename, "dlabel.nii")
 
-    print(f"Files for network {network} saved to /cbica/projects/ash_pfn_sex_diff_abcd/results/atlas_visualization/subject_networks_mf/")
+    print(f"Files for network {network} saved to /cbica/projects/ash_pfn_sex_diff_abcd/results/atlas_visualization/subject_networks_mf_2/")
 
 
 if __name__ == "__main__":

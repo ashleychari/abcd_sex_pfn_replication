@@ -1,4 +1,3 @@
-
 library(R.matlab)
 library(dplyr)
 library(magrittr)
@@ -223,14 +222,15 @@ overall_se <- std.error(df3$corrSigRanked)
 #tiff("/Users/sheilash/Desktop/projects/pfn_sex_diff/paper/figures/genetics/chrom_enrichments.tiff", width = 5, height = 5, units = 'in', res = 300)
 p<-ggplot(data=t9, aes(x=chromosome, y=Rank)) +
   geom_bar(stat="identity", fill=colormap$fillcolor ,
-           colour = bordermap$BorderColor, linetype = linemap$LineType, width = 0.8) + geom_errorbar(aes(ymin=Rank-se, ymax=Rank+se), width=0.15, size= 0.4, position=position_dodge(.9)) +
+           colour = bordermap$BorderColor, linetype = linemap$LineType, width = 0.8) + geom_pointrange(aes(ymin=Rank-se, ymax=Rank+se), size=0.1, position=position_dodge(.9)) +
   geom_point(data=t9, aes(y=Rank, x=chromosome), size = 0.4) +
   coord_flip() + xlab("Chromosome") + ylab("Enrichment") +
   geom_hline(aes(yintercept = as.numeric(0))) +
   #ylim(-2799, 1010) +
   #scale_y_discrete(breaks = c(-2000, -1000, 1000)) +
-  theme(legend.position="none") + theme(axis.text.x = element_text(size= 10), axis.text.y = element_text(size= 10, color = bordermap$BorderColor), axis.title=element_text(size = 12))
-p
+  theme(legend.position="none") + theme(axis.text.x = element_text(size= 12), axis.text.y = element_text(size= 12, color = bordermap$BorderColor), axis.title=element_text(size = 18))
+
+ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/genetics/chromosomal_enrichments/high_res/gams_fdr_replication_plot.png", plot=p, height=5, width=5, dpi=300)
 
 #dev.off()
 

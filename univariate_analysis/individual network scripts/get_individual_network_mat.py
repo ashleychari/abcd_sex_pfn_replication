@@ -12,6 +12,6 @@ if __name__ == "__main__":
     if "Unnamed: 0" in discovery_gams_all_networks_mat.columns:
         discovery_gams_all_networks_mat = discovery_gams_all_networks_mat.drop(['Unnamed: 0'], axis=1)
 
-    get_individual_network_mat(discovery_gams_all_networks_mat, 3)
-    get_individual_network_mat(discovery_gams_all_networks_mat, 9)
-    get_individual_network_mat(discovery_gams_all_networks_mat, 12)
+
+    for i in range(1, 18):
+        get_individual_network_mat(discovery_gams_all_networks_mat, i)

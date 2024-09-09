@@ -17,7 +17,6 @@ theme_set(theme_classic(base_size = 16))
 #data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis/discovery_univariate_barplot_all_networks_mat.csv")
 #data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/discovery_barplot_all_networks_mat.csv")
 data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/replication_barplot_all_networks_mat.csv")
-#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis/replication_univariate_barplot_all_networks_mat.csv")
 data_brain <-data_brain1
 
 #function to sum negative vertecies
@@ -83,14 +82,14 @@ sums_all_col_rank <- sums_all_col_rank %>%
 
 colormap=sums_all_col_rank %>% select(network,netColorF)%>%unique()
 
-write.csv(sums_all_col_rank, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/figure_s8_barplots/network_tables/gams_discovery_network_sums_table.csv")
+write.csv(sums_all_col_rank, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/figure_s8_barplots/network_tables/gams_replication_network_sums_table.csv")
 
 
 #ggplot(sums_all_col_rank, aes(x=network, y=vertecies, fill=sex)) + geom_bar(position = "dodge", stat="identity") + scale_fill_manual(values = colormap$netColorF)
 
-ggplot(sums_all_col_rank, aes(x = network, y = vertecies, fill=network, alpha=factor(sex)))+
+barplot <- ggplot(sums_all_col_rank, aes(x = network, y = vertecies, fill=network, alpha=factor(sex)))+
   geom_col( position = "stack", color="black") + xlab("Network") + ylab("Significant Vertices")+
-  scale_alpha_manual(values = c("male"=0.5, "female"=1), guide='none') + scale_fill_manual(values = colormap$netColorF) + scale_y_continuous(expand = c(0, 0)) +
+  scale_alpha_manual(values = c("male"=0.5, "female"=1), guide='none') + scale_fill_manual(values = colormap$netColorF) + scale_y_continuous(limits = c(0, 13750), breaks=seq(0, 12500, 2500), expand=c(0, 0)) +
   geom_col_pattern(aes(pattern_alpha = sex),
                    fill = NA, pattern = 'stripe',
                    pattern_fill = "black",
@@ -98,4 +97,7 @@ ggplot(sums_all_col_rank, aes(x = network, y = vertecies, fill=network, alpha=fa
                    pattern_density = 0.05,
                    pattern_spacing = 0.03,
                    pattern_key_scale_factor = 0.5) + scale_pattern_alpha_discrete(range = c(0,0.5), labels =c("Female", "Male")) +
-  theme(legend.position="none") + theme(axis.text.x = element_text(size= 10), axis.text.y = element_text(size= 10))
+  theme(legend.position="none") + theme(axis.text.x = element_text(size= 12), axis.text.y = element_text(size= 12), axis.title= element_text(size=18))
+
+ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/univariate_analysis/barplots/high_res/gams_replication_barplot.png", plot=barplot, width=4.8, height=3.5)
+

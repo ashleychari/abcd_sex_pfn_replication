@@ -15,21 +15,21 @@ colnames(pfn_sizes)<-c("subjectkey","PFN1","PFN2","PFN3","PFN4","PFN5","PFN6","P
 # colnames(newdata.baseline)[1]<-"subjectkey"
 # all.data <- merge(pfn_sizes,newdata.baseline[,c("subjectkey", setdiff(colnames(newdata.baseline),colnames(pfn_sizes)))],by="subjectkey")
 all.data <- pfn_sizes
-all.data$subjectkey <- gsub(pattern="sub-NDAR",replacement="NDAR_", all.data$subjectkey)
+all.data$subjectkey <- gsub(pattern="sub-NDAR",replacement="NDAR_", all.data$subjectkey) #9132
 
 # Remove subjects based on the following criteria:
 ## 1) 8min of retained TRs (600 TRs)
 ## 2) ABCD Booleans for rest and T1
 num_TRs <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/FilesForAdam/num_TRs_by_subj_redo.csv")
 data<-merge(all.data,num_TRs,by="subjectkey")
-data.clean<-data[data$numTRs>=600,]
+data.clean<-data[data$numTRs>=600,] #data-data.clean=839
 
 # Remove participants based on booleans from ABCD
 abcd_imgincl01 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/FilesForAdam/abcd_imgincl01.csv")
-abcd_imgincl01 <- abcd_imgincl01[abcd_imgincl01$eventnam=="baseline_year_1_arm_1",]
-abcd_imgincl01 <- abcd_imgincl01[!abcd_imgincl01$visit=="",] 
-abcd_imgincl01 <- abcd_imgincl01[abcd_imgincl01$imgincl_t1w_include==1,] 
-abcd_imgincl01 <- abcd_imgincl01[abcd_imgincl01$imgincl_rsfmri_include==1,]
+abcd_imgincl01 <- abcd_imgincl01[abcd_imgincl01$eventnam=="baseline_year_1_arm_1",] #23311
+abcd_imgincl01 <- abcd_imgincl01[!abcd_imgincl01$visit=="",] #11663
+abcd_imgincl01 <- abcd_imgincl01[abcd_imgincl01$imgincl_t1w_include==1,] #11124
+abcd_imgincl01 <- abcd_imgincl01[abcd_imgincl01$imgincl_rsfmri_include==1,] #9388
 combined.data <- merge(data.clean,abcd_imgincl01[, c("subjectkey",'imgincl_t1w_include')],by="subjectkey") 
 
 # for simplicity, rename thompson variables
@@ -68,4 +68,5 @@ abcd.data.for.ridge<-abcd.data.traintest[,c("subjectkey","matched_group","interv
 abcd.data.for.ridge.complete<-abcd.data.for.ridge[complete.cases(abcd.data.for.ridge),]
 abcd.data.for.ridge.complete<-abcd.data.for.ridge.complete %>% distinct()
 abcd.data.for.ridge.complete$subjectkey<-gsub('NDAR_INV','INV',abcd.data.for.ridge.complete$subjectkey) 
+
 write.csv(abcd.data.for.ridge.complete,"data_for_ridge_030824.csv")

@@ -36,7 +36,7 @@ def create_network_viz(network, hard_parcels):
 # Function to save the data as a CIFTI file
 def save_to_cifti(hard_parcels, save_filename):
     # Load a CIFTI template file to use its header
-    working_cifti_file = nib.load("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis/unthresholded_abs_sum_replication_071624.dscalar.nii")
+    working_cifti_file = nib.load("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/hardparcel_group.dlabel.nii")
     cifti_header = working_cifti_file.header
     # Create a new CIFTI image with the provided data and header
     new_cifti_img = nib.Cifti2Image(np.asanyarray(hard_parcels), header=cifti_header)
@@ -58,15 +58,15 @@ if __name__ == "__main__":
     save_to_cifti(hard_parcels_array, save_filename)
 
     # Generate and save hard parcel visualizations for networks 3, 4, and 12
-    save_network_3_filename = '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/network_3_hardparcels.dscalar.nii'
+    save_network_3_filename = '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/network_3_hardparcels.dlabel.nii'
     network_3_viz = create_network_viz(3, hard_parcels)
     save_to_cifti(network_3_viz, save_network_3_filename)
 
-    save_network_4_filename = '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/network_4_hardparcels.dscalar.nii'
+    save_network_4_filename = '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/network_4_hardparcels.dlabel.nii'
     network_4_viz = create_network_viz(4, hard_parcels)
     save_to_cifti(network_4_viz, save_network_4_filename)
 
-    save_network_12_filename = '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/network_12_hardparcels.dscalar.nii'
+    save_network_12_filename = '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/network_12_hardparcels.dlabel.nii'
     network_12_viz = create_network_viz(12, hard_parcels)
     save_to_cifti(network_12_viz, save_network_12_filename)
 
