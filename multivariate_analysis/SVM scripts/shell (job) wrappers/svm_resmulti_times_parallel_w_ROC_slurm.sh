@@ -5,4 +5,3 @@
 
 #python3 /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/run_2fold_svm_resmulti_times_parallel_w_ROC.py -5 11 $SLURM_ARRAY_TASK_ID
 python3 /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/run_2fold_svm_resmulti_times_parallel_w_ROC.py -5 10 $SLURM_ARRAY_TASK_ID
-

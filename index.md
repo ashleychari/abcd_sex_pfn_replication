@@ -17,11 +17,11 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
   1. Run the [calc_group_average_mat.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/calc_group_average_mat.py) script to get the group average matrix for the networks for all of the subjects in the discovery and replication sets combined
 
-  1. Run the [create_hard_parcel.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the hard parcellations from networks 3, 4, and 12
+  1. Run the [create_hard_parcel.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the hard parcellations from networks 3, 4, and 12 to make main figure 1
 
-  1. Run the [create_soft_parcel.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the soft parcellations from networks 3, 4, and 12
+  1. Run the [create_soft_parcel.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the soft parcellations from networks 3, 4, and 12 to make main figure 1
 
-  1. Run the [get_subject_parcels.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the hard and soft parcellations for 4 random subjects with 2 subjects being male and 2 being female
+  1. Run the [get_subject_parcels.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the hard and soft parcellations for 4 random subjects with 2 subjects being male and 2 being female to make main figure 1
 
 ### Part 3: Univariate Analysis
   1.  Use [convert_mat.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/discovery%20and%20replication%20sample%20setup%20scripts/convert_mat.py) to convert the final_UV.mat files into csvs
@@ -42,7 +42,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   qsub -l h_vmem=25G,s_vmem=25G /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/run_univariate_replication.sh
   ```
 
-  5. Once the gams models have been run, create the unthresholded absolute sum map from the results using the [write_effect_map_abs_sum.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/workbench%20setup%20scripts/write_effect_map_abs_sum.py) script. You'll need to change the arguments in the two function calls in the main execution block of the script.
+  5. Once the gams models have been run, create the unthresholded absolute sum map in Figure 2D from the results using the [write_effect_map_abs_sum.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/workbench%20setup%20scripts/write_effect_map_abs_sum.py) script. You'll need to change the arguments in the two function calls in the main execution block of the script.
 
   6. Convert the file obtained from the previous step into a CIFTI format to be loaded into workbench to create the brain maps seen in Figure 2 by using the [write_effect_map_to_cifti.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/workbench%20setup%20scripts/write_effect_map_to_cifti.py). 
 
@@ -58,9 +58,9 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
   8. To get the significant veritces barplot, first run the [make_barplot_mat.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/barplot%20scripts/make_barplot_mat.py) script to get a matrix of the significant vertices for each network.
 
-  9. Use the [create_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/barplot%20scripts/create_barplot.R) to create the barplot seen in Figure 2 of significant vertices for each network. I ran this in Rstudio.
+  9. Use the [create_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/barplot%20scripts/create_barplot.R) to create the barplot seen in Figure 2A (discovery set) and Figure 2B (replication set) of significant vertices for each network. I ran this in Rstudio.
 
-  10. To create the significant vertices for networks 3, 9, and 12, use the [get_individual_network_mat.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/individual%20network%20scripts/get_individual_network_mat.py) script to get each individual network from the matrix in the previous step.
+  10. To create the significant vertices for networks 3, 9, and 12 seen in Figure 2C, use the [get_individual_network_mat.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/individual%20network%20scripts/get_individual_network_mat.py) script to get each individual network from the matrix in the previous step. Also used to make the 17 networks seen in Figure S1. 
 
 
 ### Part 4: Multivariate Analysis
@@ -80,11 +80,11 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   qsub -l h_vmem=500G,s_vmem=500G haufe_transform_weights.sh
   ```
 
-  5. Use the haufe transformed weight matrix from the previous step in the [svm_stacked_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20weights%20barplot/svm_stacked_barplot.R) script to get the stacked barplot of feature importance for both Males and Females. I ran this in Rstudio
+  5. Use the haufe transformed weight matrix from the previous step in the [svm_stacked_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20weights%20barplot/svm_stacked_barplot.R) script to get the stacked barplot of feature importance for both Males and Females as seen in Figure 3C. I ran this in Rstudio
 
   6. Use the haufe transformed weight matrix in the [sum_abs_weights_matrix.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20brain%20map%20plot/sum_abs_weights_matrix_svm.py) to get the absolute value sum of the weights and save this array.
 
-  7. Use [write_effect_map_to_cifti_svm.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20brain%20map%20plot/write_effect_map_to_cifti_svm.py) to convert the matrix in the previous step into a CIFTI file format for visualization.
+  7. Use [write_effect_map_to_cifti_svm.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20brain%20map%20plot/write_effect_map_to_cifti_svm.py) to convert the matrix in the previous step into a CIFTI file format for visualization/to get Figure 3B.
 
   8. Use the dscalar.nii file in workbench to get the visualization of the weights.
 
@@ -94,7 +94,9 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   sbatch svm_permutation_parallel.sh
   ```
 
-  10. To generate the ROC curve as seen in Figure 3, run the [create_ROC_curve.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/roc_curve/create_ROC_curve.py) with the results from the 100 runs.
+  10. To generate the ROC curve as seen in Figure 3A, run the [create_ROC_curve.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/roc_curve/create_ROC_curve.py) with the results from the 100 runs and use the [plot_roc.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/roc_curve/plot_roc.R) to make Figure 3A. 
+
+  11. To get the support vector machine stats such as average accuracy, average sensitivity, and average specificity use the [get_svm_metrics.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20accuracy%20histogram/get_svm_metrics.py) script.
 
 ### Part 5: Genetics
   > The files generated from the steps below will be used in the enrichement analyses.
@@ -123,14 +125,14 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
 
 ### Chromosomal enrichment analysis
-  1. Run the [ABCD_wSex_cor_gene_schaefer403_net7_discovery_20242108.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/chromosome_enrichment/ABCD_wSex_cor_gene_schaefer403_net7_discovery_20242108.R) script to get the chromosomal enrichments found in Figure 4, recommend running this in Rstudio
+  1. Run the [ABCD_wSex_cor_gene_schaefer403_net7_discovery_20242108.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/chromosome_enrichment/ABCD_wSex_cor_gene_schaefer403_net7_discovery_20242108.R) script to get the chromosomal enrichments found in Figure 4A, recommend running this in Rstudio
 
   > Make sure to change the filepaths to use the files created above
 
   > Also make sure to change the filepaths for saving the intermediate files such as pvalues table and top 20 X chromosome genes
 
 ### Cell Type enrichment analysis
-  1. Run the [cell_types_LAKE.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/celltype_enrichment/cell_types_LAKE.R) script to get the cell type enrichments found in Figure 4, recommend running this in Rstudio
+  1. Run the [cell_types_LAKE.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/celltype_enrichment/cell_types_LAKE.R) script to get the cell type enrichments found in Figure 4B, recommend running this in Rstudio
 
   > Make sure to change the filepaths to use the files created above
     
@@ -180,10 +182,10 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   ```
   
 ### Part 6: Other plots and figures
-  1. To create the hex plots seen in figures 2 and 3, use the [hex_plots.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/hex_plots/hex_plots.R) absolute sum matrices as arguments along with the data labels like the following command:
+  1. To create the hex plots seen in figures 2E, 2F and 3D, use the [hex_plots.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/hex_plots/hex_plots.R) absolute sum matrices as arguments along with the data labels like the following command:
 
   ```bash
-  Rscript hex_plots.R "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/data/PNC_data/PNC_gams_abs_sum_all_fslr.csv" "PNC GAMs discovery loadings" "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.csv" "ABCD GAMs discovery loadings" "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/hex_plots/plots/pnc_gams_disc_vs_abcd_gams_disc_hex_plot.png"
+  Rscript hex_plots.R "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_072324_run/abs_sum_weight_brain_mat_replication_haufe_100_runs_072324.npy" "Replication SVM Weights" "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_replication.csv" "Replication GAM Loadings" "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/hex_plots/svm_rep_vs_gams_rep_hex_plot.png"
   ```
 
-  2. To create the figure s8 plot, use the data in the intermediate step of the significant vertices or svm weights barplots and run the [group_networks.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/group_networks.py) to group by netColor (or network group) and then use this data as input into [figure_s8_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/figure_s8_barplot.R).
+  2. To create the Figure S8 plot, use the data in the intermediate step of the significant vertices or svm weights barplots and run the [group_networks.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/group_networks.py) to group by netColor (or network group) and then use this data as input into [figure_s8_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/figure_s8_barplot.R).
