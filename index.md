@@ -1,4 +1,4 @@
-# ABCD Sex Differences replication project
+# ABCD Sex Differences Replication Project
 
 This project aims to replicate the work done by Shanmugan et al (2022), Sex Differences in the functional topography of association networks in youth, in the ABCD dataset.
 
