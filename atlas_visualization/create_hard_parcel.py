@@ -46,7 +46,7 @@ def save_to_cifti(hard_parcels, save_filename):
 
 if __name__ == "__main__":
     # Define the filename for saving the hard parcels matrix
-    save_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/hardparcels_group_080924.dscalar.nii"
+    save_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/hardparcels_group_080924.dlabel.nii"
 
     # Load the group average matrix from a .npy file
     group_avg_mat = np.load("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/atlas_visualization/group_average_matrix.npy")

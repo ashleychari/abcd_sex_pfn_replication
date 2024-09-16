@@ -17,9 +17,9 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
   1. Run the [calc_group_average_mat.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/calc_group_average_mat.py) script to get the group average matrix for the networks for all of the subjects in the discovery and replication sets combined
 
-  1. Run the [create_hard_parcel.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the hard parcellations from networks 3, 4, and 12 to make main figure 1
+  1. Run the [create_hard_parcel.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/create_hard_parcel.py) script to get the hard parcellations from networks 3, 4, and 12 to make main figure 1
 
-  1. Run the [create_soft_parcel.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the soft parcellations from networks 3, 4, and 12 to make main figure 1
+  1. Run the [create_soft_parcel.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/create_soft_parcel.py) script to get the soft parcellations from networks 3, 4, and 12 to make main figure 1
 
   1. Run the [get_subject_parcels.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/atlas_visualization/get_subject_parcels.py) script to get the hard and soft parcellations for 4 random subjects with 2 subjects being male and 2 being female to make main figure 1
 
@@ -36,7 +36,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   qsub -l h_vmem=25G,s_vmem=25G /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/run_univariate_analysis.sh
   ```
 
-  4. Similarly, do the same thing but for the replication data and use [abcd_unvariate_analysis_replication.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/GAMs%20scripts/R%20scripts/abcd_univariate_analysis.R) script and then run the wrapper script [run_univariate_replication.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/GAMs%20scripts/shell%20(job)%20wrappers/run_univariate_replication.sh) via SGE using the following command:
+  4. Similarly, do the same thing but for the replication data and use [abcd_unvariate_analysis_replication.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/GAMs%20scripts/R%20scripts/abcd_univariate_analysis_replication.R) script and then run the wrapper script [run_univariate_replication.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/GAMs%20scripts/shell%20(job)%20wrappers/run_univariate_replication.sh) via SGE using the following command:
 
   ```bash
   qsub -l h_vmem=25G,s_vmem=25G /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/run_univariate_replication.sh
