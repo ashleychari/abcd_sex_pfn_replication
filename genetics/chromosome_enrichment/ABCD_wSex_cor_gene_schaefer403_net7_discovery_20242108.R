@@ -24,10 +24,10 @@ colnames(lh_schaefer1000_ct_500) <- "V1"
 setDT(lh_schaefer1000_ct_500, keep.rownames = "parcNum")
 
 # read in brain img data
-#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_discovery_LH.fsaverage5.func.gii')
+data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_discovery_LH.fsaverage5.func.gii')
 #data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_replication_LH.fsaverage5.func.gii')
 #data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_discovery_LH.fsaverage5.func.gii')
-data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_replication_LH.fsaverage5.func.gii')
+#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_replication_LH.fsaverage5.func.gii')
 data_brain <- data_brain1$data$normal
 
 
@@ -157,7 +157,7 @@ for (j in 1:length(t5$chromosome)){
 
 df_enrich_pval <- merge(t5, perm.pval, by = "chromosome")
 df_enrich_pval1 <- df_enrich_pval[with(df_enrich_pval, order(-t7)),]
-write.csv(df_enrich_pval1, '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/chromosome_enrichment/fdr_replication_pvals.csv')
+write.csv(df_enrich_pval1, '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/chromosome_enrichment/uncorrected_discovery_pvals.csv')
 
 
 
@@ -230,7 +230,7 @@ p<-ggplot(data=t9, aes(x=chromosome, y=Rank)) +
   #scale_y_discrete(breaks = c(-2000, -1000, 1000)) +
   theme(legend.position="none") + theme(axis.text.x = element_text(size= 12), axis.text.y = element_text(size= 12, color = bordermap$BorderColor), axis.title=element_text(size = 18))
 
-ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/genetics/chromosomal_enrichments/high_res/gams_fdr_replication_plot.png", plot=p, height=5, width=5, dpi=300)
+ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/genetics/chromosomal_enrichments/high_res/gams_uncorrected_discovery_plot.png", plot=p, height=5, width=5, dpi=300)
 
 #dev.off()
 
@@ -238,7 +238,7 @@ ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/gen
 df3_gene_X <- subset(df3, df3$chromRefined=='X')
 df3_gene_ranked_X <- df3_gene_X[order(df3_gene_X$corr, decreasing=TRUE), ]
 df3_gene_X_ranked_top20 <- df3_gene_ranked_X[1:20, ]
-write.csv(df3_gene_X_ranked_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/chrom_X_top20_replication_fdr.csv")
+write.csv(df3_gene_X_ranked_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/chrom_X_top20_uncorrected_discovery.csv")
 
 
 

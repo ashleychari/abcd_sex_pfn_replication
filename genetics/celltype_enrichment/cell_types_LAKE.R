@@ -277,13 +277,13 @@ ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/gen
 
 
 
-write.csv(df_enrich_pval1, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/celltype_enrichment/gams_replication_fdr_celltypes_pvalues.csv")
+write.csv(df_enrich_pval1, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/celltype_enrichment/gams_uncorrected_discovery_celltypes_pvalues.csv")
 
 
 df3_gene_astro <- subset(df3, df3$cellRefined=='Ast')
 df3_gene_astro_ranked <- df3_gene_astro[order(df3_gene_astro$corr, decreasing=TRUE), ]
 df3_gene_astro_top20 <- df3_gene_astro_ranked[1:20,]
-write.csv(df3_gene_astro_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/astro_top20_replication_fdr.csv")
+write.csv(df3_gene_astro_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/astro_top20_uncorrected_discovery.csv")
 #df3_gene_ranked_X <- df3_gene_X[order(df3_gene_X$corr, decreasing=TRUE), ]
 #df3_gene_X_ranked_top20 <- df3_gene_ranked_X[1:20, ]
 
@@ -291,19 +291,19 @@ write.csv(df3_gene_astro_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_repli
 df3_gene_ex5b <- subset(df3, df3$cellRefined=='Ex5b')
 df3_gene_ex5b_ranked <- df3_gene_ex5b[order(df3_gene_ex5b$corr, decreasing=TRUE), ]
 df3_gene_ex5b_top20 <- df3_gene_ex5b_ranked[1:20,]
-write.csv(df3_gene_ex5b_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/ex5b_top20_replication_fdr.csv")
+write.csv(df3_gene_ex5b_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/ex5b_top20_uncorrected_discovery.csv")
 
 
 df3_gene_ex1 <- subset(df3, df3$cellRefined=='Ex1')
 df3_gene_ex1_ranked <- df3_gene_ex1[order(df3_gene_ex1$corr, decreasing=TRUE), ]
 df3_gene_ex1_top20 <- df3_gene_ex1_ranked[1:20,]
-write.csv(df3_gene_ex1_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/ex1_top20_replication_fdr.csv")
+write.csv(df3_gene_ex1_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/ex1_top20_uncorrected_discovery.csv")
 
 
 df3_gene_oli <- subset(df3, df3$cellRefined=='Oli')
 df3_gene_oli_ranked <- df3_gene_oli[order(df3_gene_oli$corr, decreasing=TRUE), ]
 df3_gene_oli_top20 <- df3_gene_oli_ranked[1:20,]
-write.csv(df3_gene_oli_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/oli_top20_replication_fdr.csv")
+write.csv(df3_gene_oli_top20, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/top20_enrichment_tables/oli_top20_uncorrected_discovery.csv")
 
 
 

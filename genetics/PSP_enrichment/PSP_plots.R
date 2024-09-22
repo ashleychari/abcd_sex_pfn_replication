@@ -21,19 +21,11 @@ lh_schaefer1000_ct_500 <- as.data.frame(lh_schaefer1000_ct[-1,])
 colnames(lh_schaefer1000_ct_500) <- "V1"
 setDT(lh_schaefer1000_ct_500, keep.rownames = "parcNum")
 
-# read in brain img data
-#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/GAMs_Sex_Abs_sum_LH.fsaverage5.func.gii') # gams uncorrected discovery
-#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_replication_uncorrected_LH.fsaverage5.func.gii') # gams uncorrected replication
-#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_discovery_fdr_LH.fsaverage5.func.gii') # gams discovery fdr
-#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_replication_fdr_LH.fsaverage5.func.gii') # gams replication fdr
-#data_brain <-data_brain1$data$normal
-
-
 # Recreated data
-#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_discovery_LH.fsaverage5.func.gii')
+data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_discovery_LH.fsaverage5.func.gii')
 #data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_uncorrected_replication_LH.fsaverage5.func.gii')
 #data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_discovery_LH.fsaverage5.func.gii')
-data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_replication_LH.fsaverage5.func.gii')
+#data_brain1 <- readgii('/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/gams_gii_files/gams_fdr_replication_LH.fsaverage5.func.gii')
 data_brain <- data_brain1$data$normal
 
 
@@ -185,4 +177,4 @@ for (j in 1:length(t5$cellType)){
 
 df_enrich_pval <- merge(t5, perm.pval, by = "cellType")
 df_enrich_pval1 <- df_enrich_pval[with(df_enrich_pval, order(-t7)),]
-write.csv(df_enrich_pval1, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/PSP_enrichment/gams_replication_fdr_psp_pvalues.csv")
+write.csv(df_enrich_pval1, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/genetics/PSP_enrichment/gams_uncorrected_discovery_psp_pvalues.csv")
