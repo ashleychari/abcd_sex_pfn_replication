@@ -64,7 +64,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
 
 ### Part 4: Multivariate Analysis
-  1. Run [create_nonzero_matrix.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/nonzero%20matrix%20creation%20scripts/create_nonzero_matrix.py) to setup the non-zero features matrix for subsequent steps. 
+  1. Run [create_nonzero_matrix.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/nonzero%20matrix%20creation%20scripts/create_nonzero_matrix.py) using the discovery sample csv and replication sample csv created in Part 1, step 2 to setup the non-zero features matrices for subsequent steps. 
 
   2. Next, run [run_2fold_svm_resmulti_times_parallel_w_ROC.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20scripts/python%20scripts/run_2fold_svm_resmulti_times_parallel_w_ROC.py) by running the wrapper script [svm_resmulti_times_parallel_w_ROC_slurm.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20scripts/shell%20(job)%20wrappers/svm_resmulti_times_parallel_w_ROC_slurm.sh). The wrapper script submits an array job of size 100 which will run the `run_2fold` script 100 times (each run as a separate job) via slurm. The svm script runs 2 fold cross validation using the nonzero features matrix to predict sex using SVM. Run the following command to run the script:
 
@@ -157,7 +157,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   3. Run the [spin_test.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/spin_tests/spin_test.py) script using the converted gii files. The script can be run using the following example command:
 
   ```bash
-  python3 spin_test.py '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/data/results_gifti/gams_abs_sum_discovery_map.gii' '/Users/ashfrana/Desktop/code/ abcd_sex_pfn_replication/spin_tests/data/results_gifti/gams_abs_sum_replication_map.gii' "fsLR" 'Gams discovery vs replication' '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/results'
+  python3 spin_test.py '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/data/results_gifti/gams_abs_sum_discovery_map.gii' '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/data/results_gifti/gams_abs_sum_replication_map.gii' "fsLR" 'Gams discovery vs replication' '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/results'
   ```
 
   4. Once all spin tests have been completed, you can compile all of the results from the different tests as long as they are in the same folder by using the [compile_spin_tests.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/spin_tests/compile_spin_tests.py). The script can be run by calling the name of the script followed by the folder that the spin test results are stored in (might need to be the full path if the script is not in the same directory as the results):

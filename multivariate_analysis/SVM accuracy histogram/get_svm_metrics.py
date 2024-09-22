@@ -72,17 +72,17 @@ def make_avg_table(save_file, set_order, accuracies, sensitivities, specificitie
     
 if __name__ == "__main__":
     discovery_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/discovery_sample_siblings_removed_071524.csv")
-    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/res_100_times_roc_090624"
-    avg_table_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_090624_run/svm_100_times_090624_metrics.csv"
+    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/res_100_times_roc_072324"
+    avg_table_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_072324_run/svm_100_times_072324_metrics.csv"
     accuracies_disc, sensitivity_disc, specificity_disc = get_metrics(discovery_data_for_ridge, res_multitimes_path, "discovery")
     #print(accuracies_disc)
     print(f"Discovery - avg acc: {np.mean(accuracies_disc)}, CI: {st.t.interval(confidence=0.95, df=len(accuracies_disc)-1, loc=np.mean(accuracies_disc), scale=st.sem(accuracies_disc))}")
 
 
     replication_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/replication_sample_siblings_removed_071524.csv")
-    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/res_100_times_roc_090624"
     accuracies_rep, sensitivity_rep, specificity_rep = get_metrics(replication_data_for_ridge, res_multitimes_path, "replication")
     print(f"Replication - avg acc: {np.mean(accuracies_rep)}, CI: {st.t.interval(confidence=0.95, df=len(accuracies_rep)-1, loc=np.mean(accuracies_rep), scale=st.sem(accuracies_rep))}")
+    
 
     accuracies_100 = [np.mean(accuracies_disc), np.mean(accuracies_rep)]
     sensitivity_100 = [np.mean(sensitivity_disc), np.mean(sensitivity_rep)]
