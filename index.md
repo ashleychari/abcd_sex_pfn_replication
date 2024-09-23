@@ -105,25 +105,27 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
   1. Download files from [https://github.com/PennLINC/S-A_ArchetypalAxis](https://github.com/PennLINC/S-A_ArchetypalAxis) to be used in the `flsr_to_fsaverage5.sh` script
 
-  2. Use the [fslr_to_fsaverage5.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/fslr_to_fsaverage5.sh) script to resample the gams uncorrected abs sum discovery data, gams uncorrected abs sum replication data, gams fdr abs sum discovery data, and gams fdr abs sum replication data from fslr to fsaverage5. Parameters include path to the map (dscalar.nii file) you're trying to resample to fsaverage5 space and the name that you want to label the resulting files. The file that you'll want to use in the enrichment analyses will end with `_LH.fsaverage5.func.gii`.
+  2. Get the FDR corrected absolute sum matrices by using [write_effect_map_abs_sum_fdr.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/workbench%20setup%20scripts/write_effect_map_abs_sum_fdr.py) to create the fdr absolute sum matrices that are used for the genetics portion of this project.
+
+  3. Use the [fslr_to_fsaverage5.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/fslr_to_fsaverage5.sh) script to resample the gams uncorrected abs sum discovery data, gams uncorrected abs sum replication data, gams fdr abs sum discovery data, and gams fdr abs sum replication data from fslr to fsaverage5. Parameters include path to the map (dscalar.nii file) you're trying to resample to fsaverage5 space and the name that you want to label the resulting files. The file that you'll want to use in the enrichment analyses will end with `_LH.fsaverage5.func.gii`.
   
   Example command below:
 
   ```bash
-  ./fslr_to_fsaverage5.sh /Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.dscalar.nii gams_uncorrected_discovery
+  ./fslr_to_fsaverage5.sh "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.dscalar.nii" gams_uncorrected_discovery
   ```
 
-  3. Download Download `AHBAProcessed.zip` and `AHBAData.zip` from [https://figshare.com/articles/dataset/AHBAdata/6852911](https://figshare.com/articles/dataset/AHBAdata/6852911)   
+  4. Download Download `AHBAProcessed.zip` and `AHBAData.zip` from [https://figshare.com/articles/dataset/AHBAdata/6852911](https://figshare.com/articles/dataset/AHBAdata/6852911)   
 
-  4. Read annotation file `AHBAData/data/genes/parcellations/lh.Schaefer1000_7net.annot` from figshare into R and use [read_gene_annot_files.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/read_gene_annot_files.R) to save the following files
+  5. Read annotation file `AHBAData/data/genes/parcellations/lh.Schaefer1000_7net.annot` from figshare into R and use [read_gene_annot_files.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/read_gene_annot_files.R) to save the following files
       > save column 5 from `ct.table` as `lh_Schaefer1000_7net_cttable.csv`
       <br>  
       > save `L` as `lh_Schaefer1000_7net_L.csv`
 
-  5. Save probe annotation file using `ROIxGene_Schaefer1000_INT.mat` and [create_probe_annotation.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/create_probe_annotation.py)
+  6. Save probe annotation file using `ROIxGene_Schaefer1000_INT.mat` and [create_probe_annotation.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/create_probe_annotation.py)
       > Save the filename as `GeneSymbol.csv`
   
-  6. Grab the rest of the files needed for the scripts below from `/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/genetics_files/` which originally came from the `abcdpfnsexdiff` project folder on cubic
+  7. Grab the rest of the files needed for the scripts below from `/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/genetics_files/` which originally came from the `abcdpfnsexdiff` project folder on cubic
 
 
 ### Chromosomal enrichment analysis
