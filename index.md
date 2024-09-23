@@ -125,7 +125,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   6. Save probe annotation file using `ROIxGene_Schaefer1000_INT.mat` and [create_probe_annotation.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/create_probe_annotation.py)
       > Save the filename as `GeneSymbol.csv`
   
-  7. Grab the rest of the files needed for the scripts below from `/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/genetics_files/` which originally came from the `abcdpfnsexdiff` project folder on cubic
+  7. Grab the rest of the files needed for the scripts below from `/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/genetics_files/` which originally came from the `abcdpfnsexdiffabcd` project folder on cubic
 
 
 ### Chromosomal enrichment analysis
