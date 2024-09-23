@@ -80,6 +80,12 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   qsub -l h_vmem=500G,s_vmem=500G haufe_transform_weights.sh
   ```
 
+  or if you want to run via slurm, use the [haufe_transform_weights_slurm.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/haufe%20transformation%20scripts/haufe_transform_weights_slurm.sh) script with the following command after running `module load slurm` in your terminal window: 
+
+  ```bash
+  sbatch haufe_transform_weights_slurm.sh
+  ```
+
   5. Use the haufe transformed weight matrix from the previous step in the [svm_stacked_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20weights%20barplot/svm_stacked_barplot.R) script to get the stacked barplot of feature importance for both Males and Females as seen in Figure 3C. I ran this in Rstudio
 
   6. Use the haufe transformed weight matrix in the [sum_abs_weights_matrix.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20brain%20map%20plot/sum_abs_weights_matrix_svm.py) to get the absolute value sum of the weights and save this array.
