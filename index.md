@@ -111,17 +111,14 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
   1. Download files from [https://github.com/PennLINC/S-A_ArchetypalAxis](https://github.com/PennLINC/S-A_ArchetypalAxis) to be used in the `flsr_to_fsaverage5.sh` script
 
-  > NOTE: If you are using windows, best to install `Git Bash` and put an `sh` at the start of the command to run the script. Example command for mac users:
-
-  ```bash
-  ./flsr_to_fsaverage5.sh "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.dscalar.nii" gams_uncorrected_discovery
-  ```
 
   2. Get the FDR corrected absolute sum matrices by using [write_effect_map_abs_sum_fdr.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/workbench%20setup%20scripts/write_effect_map_abs_sum_fdr.py) to create the fdr absolute sum matrices that are used for the genetics portion of this project.
 
-  3. Use the [fslr_to_fsaverage5.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/fslr_to_fsaverage5.sh) script to resample the gams uncorrected abs sum discovery data, gams uncorrected abs sum replication data, gams fdr abs sum discovery data, and gams fdr abs sum replication data from fslr to fsaverage5. Parameters include path to the map (dscalar.nii file) you're trying to resample to fsaverage5 space and the name that you want to label the resulting files. The file that you'll want to use in the enrichment analyses will end with `_LH.fsaverage5.func.gii`.
+  3. Use the [fslr_to_fsaverage5.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/fslr_to_fsaverage5.sh) script to resample the gams uncorrected abs sum discovery data, gams uncorrected abs sum replication data, gams fdr abs sum discovery data, and gams fdr abs sum replication data from fslr to fsaverage5. Parameters include path to the map (dscalar.nii file) you're trying to resample to fsaverage5 space and the name that you want to label the resulting files. The file that you'll want to use in the enrichment analyses will end with `_LH.fsaverage5.func.gii`. 
   
-  Example command below:
+  > NOTE: If you are using windows, best to install `Git Bash` and put an `sh` at the start of the command to run the script.
+  
+  Example command for mac users below:
 
   ```bash
   ./fslr_to_fsaverage5.sh "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.dscalar.nii" gams_uncorrected_discovery
