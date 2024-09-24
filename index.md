@@ -204,3 +204,6 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   ```
 
   2. To create the Figure S8 plot, use the data in the intermediate step of the significant vertices or svm weights barplots and run the [group_networks.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/group_networks.py) to group by netColor (or network group) and then use this data as input into [figure_s8_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/figure_s8_barplot.R).
+
+  > NOTE: The [figure_s8_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/figure_s8_barplot.R) script does both svm and gams plotting, but requires users to comment out the code that is not being used (ie if plotting svm, comment out gams code).
+  There are comments that indicate which code belongs to gams vs svm.
