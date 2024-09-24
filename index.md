@@ -135,7 +135,8 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
       > Save the filename as `GeneSymbol.csv`
   
   7. Grab the rest of the files needed for the scripts below from `/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/genetics_files/` which originally came from the `abcdpfnsexdiff` project folder on cubic
-    > NOTE: If you choose not to use the files in the above folder, you might have to change the filepaths and the column names corresponding to the file when you load the file in.
+  
+  > NOTE: If you choose not to use the files in the above folder, you might have to change the filepaths and the column names corresponding to the file when you load the file in.
 
 
 ### Chromosomal enrichment analysis
