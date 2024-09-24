@@ -110,11 +110,12 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   > The files generated from the steps below will be used in the enrichement analyses.
 
   1. Download files from [https://github.com/PennLINC/S-A_ArchetypalAxis](https://github.com/PennLINC/S-A_ArchetypalAxis) to be used in the `flsr_to_fsaverage5.sh` script
-    > NOTE: If you are using windows, best to install `Git Bash` and put an `sh` at the start of the command to run the script. Example command for mac users:
 
-    ```bash
-    ./flsr_to_fsaverage5.sh "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.dscalar.nii" gams_uncorrected_discovery
-    ```
+  > NOTE: If you are using windows, best to install `Git Bash` and put an `sh` at the start of the command to run the script. Example command for mac users:
+
+  ```bash
+  ./flsr_to_fsaverage5.sh "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.dscalar.nii" gams_uncorrected_discovery
+  ```
 
   2. Get the FDR corrected absolute sum matrices by using [write_effect_map_abs_sum_fdr.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/workbench%20setup%20scripts/write_effect_map_abs_sum_fdr.py) to create the fdr absolute sum matrices that are used for the genetics portion of this project.
 
