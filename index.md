@@ -110,6 +110,11 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   > The files generated from the steps below will be used in the enrichement analyses.
 
   1. Download files from [https://github.com/PennLINC/S-A_ArchetypalAxis](https://github.com/PennLINC/S-A_ArchetypalAxis) to be used in the `flsr_to_fsaverage5.sh` script
+    > NOTE: If you are using windows, best to install `Git Bash` and put an `sh` at the start of the command to run the script. Example command for mac users:
+
+    ```bash
+    ./flsr_to_fsaverage5.sh "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/uncorrected_abs_sum_matrix_discovery.dscalar.nii" gams_uncorrected_discovery
+    ```
 
   2. Get the FDR corrected absolute sum matrices by using [write_effect_map_abs_sum_fdr.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/workbench%20setup%20scripts/write_effect_map_abs_sum_fdr.py) to create the fdr absolute sum matrices that are used for the genetics portion of this project.
 
@@ -131,7 +136,8 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   6. Save probe annotation file using `ROIxGene_Schaefer1000_INT.mat` and [create_probe_annotation.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/genetics/create_probe_annotation.py)
       > Save the filename as `GeneSymbol.csv`
   
-  7. Grab the rest of the files needed for the scripts below from `/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/genetics_files/` which originally came from the `abcdpfnsexdiffabcd` project folder on cubic
+  7. Grab the rest of the files needed for the scripts below from `/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/genetics_files/` which originally came from the `abcdpfnsexdiff` project folder on cubic
+    > NOTE: If you choose not to use the files in the above folder, you might have to change the filepaths and the column names corresponding to the file when you load the file in.
 
 
 ### Chromosomal enrichment analysis
