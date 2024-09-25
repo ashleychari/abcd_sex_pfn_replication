@@ -5,6 +5,7 @@ library(tibble)
 library(ggplot2)
 library(data.table)
 library(ggpattern)
+library(RcppCNPy)
 theme_set(theme_classic(base_size = 16))
 
 #read in brain data
