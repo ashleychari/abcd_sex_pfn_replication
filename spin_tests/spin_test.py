@@ -41,7 +41,7 @@ if __name__ == "__main__":
     print(f"Spin test completed and results saved to {save_folder}/{test_name}_spin_test_results.csv")
     
     # Save command run into commands_run file
-    command_run = f"python3 spin_test.py '{map_1_filename}' '{map_2_filename}' '{test_name}' '{save_folder}' \n" 
+    command_run = f"python3 spin_test.py '{map_1_filename}' '{map_2_filename}' '{map_atlas}' '{test_name}' '{save_folder}' \n" 
     f = open("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/commands_run.txt", "a+")
     f.write(command_run)
     f.close()
