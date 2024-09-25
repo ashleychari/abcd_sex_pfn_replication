@@ -159,7 +159,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   > Make sure to change the filepaths to use the files created above and for the pvalue table
 
 ### Part 6: Spin tests
-  1. Add medial wall back in to all of the data (gams uncorrected discovery abs sum, gams uncorrected replication abs sum, svm discovery abs sum haufe transformed, svm replication abs sum haufe transformed) using [add_medial_wall.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/spin_tests/add_medial_wall.R). Save results into csv that will later be converted into gii files.
+  1. Add medial wall back in to all of the data (gams uncorrected discovery abs sum, gams uncorrected replication abs sum, svm discovery abs sum haufe transformed, svm replication abs sum haufe transformed) using [add_medial_wall.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/spin_tests/add_medial_wall.R). You can find the `medialwall.mask.leftcortex.csv` and `medialwall.mask.rightcortex.csv` here [https://github.com/PennLINC/S-A_ArchetypalAxis/tree/main/FSLRVertex](https://github.com/PennLINC/S-A_ArchetypalAxis/tree/main/FSLRVertex). Save results into csv that will later be converted into gii files.
 
   2. Use the [convert_to_gifti.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/spin_tests/convert_to_gifti.py) script to convert the data in the previous step into gii files. The following command can be run in terminal (the last argument indicated whether the data is from PNC or not): 
 
