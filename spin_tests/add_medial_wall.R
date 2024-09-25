@@ -20,9 +20,12 @@ original_map_cifti <- as_cifti(cortexL = cifti_lh2, cortexL_mwall = medialwall.m
 
 map_medial_wall <- move_from_mwall(original_map_cifti)
 
-write.csv(as.matrix(map_medial_wall), "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin tests/data/ABCD_data/gams_abs_sum_discovery_uncorrected_medial_wall.csv")
+map_medial_wall <- as.matrix(map_medial_wall)
+colnames(map_medial_wall) <- "V1"
+
+write.csv(map_medial_wall, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin tests/data/ABCD_data/gams_abs_sum_discovery_uncorrected_medial_wall.csv")
 
 #write_cifti(xifti = map_medial_wall, cifti_fname = "/Users/ashfrana/Desktop/code/ABCD GAMs replication/medial_wall_maps/gams_replication_medial_wall_map.dscalar.nii")
 
 
-test_nib <- read_cifti("/Users/ashfrana/Desktop/code/ABCD GAMs replication/test_engima_cifti/nibabel_gams_rep_uncorrected.dscalar.nii")
+#test_nib <- read_cifti("/Users/ashfrana/Desktop/code/ABCD GAMs replication/test_engima_cifti/nibabel_gams_rep_uncorrected.dscalar.nii")
