@@ -19,6 +19,9 @@ if __name__ == "__main__":
         abs_sum_mat = np.load(data_filepath)
 
     data = nib.gifti.gifti.GiftiImage()
+    if "Unnamed: 0" in abs_sum_mat.columns:
+        abs_sum_mat = abs_sum_mat.drop(["Unnamed: 0"], axis=1)
+
     if data_filepath.split(".")[1] == "csv":
         abs_sum_float32 = [np.float32(val) for val in abs_sum_mat[abs_sum_mat.columns[0]].values]
     else:
