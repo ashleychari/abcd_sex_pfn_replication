@@ -112,7 +112,7 @@ def train_svm(X_train, y_train, X_test, y_test, covariates, indices_train, indic
 
 
 # data for ridge will be either discovery or replication data
-def run_2fold_svm(matrix_filename, data_for_ridge, C_range):
+def run_2fold_svm(matrix_filename, data_for_ridge, C_range, time_idx):
     features_nonzero_matrix = load_nonzero_mat(matrix_filename)
 
     # change function call
@@ -130,10 +130,11 @@ def run_2fold_svm(matrix_filename, data_for_ridge, C_range):
     y = np.array([-1 if i == "M" else 1 for i in sex]) # set Male=1, female=-1
 
     # randomly shuffle the outcome variable
+    random_state_seed = time_idx
+    np.random.seed(random_state_seed)
     np.random.shuffle(y)
 
     # Split data into train and test
-    random_state_seed = random.randint(0, 5000)
     indices = np.arange(len(X))
     X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(X, y, indices, test_size=0.5, random_state=random_state_seed)
 
@@ -164,8 +165,8 @@ def svm_wrapper(c_range_start, c_range_end, idx_time, results_folder, discovery_
 
     c_range = range(c_range_start, c_range_end)
     c_values = [2**i for i in c_range]
-    decision_values_discovery, predicted_values_discovery, subject_ids_discovery, coefs_discovery, random_state_seed_discovery = run_2fold_svm(discovery_nonzero_mat_filename, discovery_data_for_ridge, c_values)
-    decision_values_replication, predicted_values_replication, subject_ids_replication, coefs_replication, random_state_seed_replication = run_2fold_svm(replication_nonzero_mat_filename, replication_data_for_ridge, c_values)
+    decision_values_discovery, predicted_values_discovery, subject_ids_discovery, coefs_discovery, random_state_seed_discovery = run_2fold_svm(discovery_nonzero_mat_filename, discovery_data_for_ridge, c_values, idx_time)
+    decision_values_replication, predicted_values_replication, subject_ids_replication, coefs_replication, random_state_seed_replication = run_2fold_svm(replication_nonzero_mat_filename, replication_data_for_ridge, c_values, idx_time)
     # accuracy_discovery, auc_discovery, specificity_discovery, decision_values_discovery, subject_ids_discovery, coefs_discovery, random_state_seed_discovery = run_2fold_svm(discovery_nonzero_mat_filename, discovery_data_for_ridge, c_values)
     # accuracy_replication, auc_replication, specificity_replication, decision_values_replication, subject_ids_replication, coefs_replication, random_state_seed_replication = run_2fold_svm(replication_nonzero_mat_filename, replication_data_for_ridge, c_values)
     metrics_table = pd.DataFrame()
@@ -272,7 +273,7 @@ if __name__ == "__main__":
     replication_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_siblings_removed_071524.csv')
     discovery_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery_siblings_removed_nonzero_indices.csv')
     replication_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_siblings_removed_nonzero_indices.csv')
-    results_folder = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/permutation_1000_times_081524"
+    results_folder = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/permutation_1000_times_092624"
     # Get user input
     c_range_start = int(sys.argv[1])
     c_range_end = int(sys.argv[2])
