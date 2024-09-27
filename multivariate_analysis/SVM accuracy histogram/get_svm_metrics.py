@@ -60,20 +60,21 @@ def get_metrics(data_for_ridge, results_folder, set):
 
     return accuracies_all_runs, sensitivity_all_runs, specificity_all_runs
     
-def make_avg_table(save_file, set_order, accuracies, sensitivities, specificities):
+def make_avg_table(save_file, set_order, accuracies, sensitivities, specificities, ci):
     avg_table = pd.DataFrame()
     avg_table['set'] = set_order
     avg_table['Avg Accuracy'] = accuracies
     avg_table['Avg Sensitivity'] = sensitivities
     avg_table['Avg Specificity'] = specificities
+    avg_table['95% CI'] = ci
     avg_table.to_csv(save_file)
 
 
     
 if __name__ == "__main__":
     discovery_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/discovery_sample_siblings_removed_071524.csv")
-    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/res_100_times_roc_072324"
-    avg_table_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_072324_run/svm_100_times_072324_metrics.csv"
+    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/res_100_times_roc_092624"
+    avg_table_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_092624_run/svm_100_times_092624_metrics.csv"
     accuracies_disc, sensitivity_disc, specificity_disc = get_metrics(discovery_data_for_ridge, res_multitimes_path, "discovery")
     #print(accuracies_disc)
     print(f"Discovery - avg acc: {np.mean(accuracies_disc)}, CI: {st.t.interval(confidence=0.95, df=len(accuracies_disc)-1, loc=np.mean(accuracies_disc), scale=st.sem(accuracies_disc))}")
@@ -87,7 +88,8 @@ if __name__ == "__main__":
     accuracies_100 = [np.mean(accuracies_disc), np.mean(accuracies_rep)]
     sensitivity_100 = [np.mean(sensitivity_disc), np.mean(sensitivity_rep)]
     specificity_100 = [np.mean(specificity_disc), np.mean(sensitivity_rep)]
+    ci_100 = [str(st.t.interval(confidence=0.95, df=len(accuracies_disc)-1, loc=np.mean(accuracies_disc), scale=st.sem(accuracies_disc))), str(st.t.interval(confidence=0.95, df=len(accuracies_rep)-1, loc=np.mean(accuracies_rep), scale=st.sem(accuracies_rep)))]
 
 
-    make_avg_table(avg_table_filename, ['discovery', 'replication'], accuracies_100, sensitivity_100, specificity_100)
+    make_avg_table(avg_table_filename, ['discovery', 'replication'], accuracies_100, sensitivity_100, specificity_100, ci_100)
 

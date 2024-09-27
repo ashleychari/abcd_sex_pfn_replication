@@ -32,3 +32,7 @@ finalized_figs 2/
 finalized_figs/
 **/.DS_Store
 high_res_publishable_figs/
+/multivariate_analysis/res_100_times_roc_090624
+/multivariate_analysis/res_100_times_roc_092624
+/multivariate_analysis/svm_090624_run
+/multivariate_analysis/svm_092624_run
