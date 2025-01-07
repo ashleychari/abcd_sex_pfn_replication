@@ -196,7 +196,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   python3 spin_test.py '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/data/PNC_data/Gam_abs_sum_fslr_test.gii' '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/data/ABCD_data/gams_abs_sum_discovery_uncorrected.gii' "fsLR" 'PNC gams discovery vs ABCD gams discovery fslr' '/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/spin_tests/results'
   ```
   
-### Part 6: Other plots and figures
+### Part 7: Other plots and figures
   1. To create the hex plots seen in figures 2E, 2F and 3D, use the [hex_plots.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/hex_plots/hex_plots.R) absolute sum matrices as arguments along with the data labels like the following command:
 
   ```bash
@@ -208,7 +208,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   > NOTE: The [figure_s8_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/figure_s8_barplot.R) script does both svm and gams plotting, but requires users to comment out the code that is not being used (ie if plotting svm, comment out gams code).
   There are comments that indicate which code belongs to gams vs svm.
 
-### Part 7: Network specific models
+### Part 8: Network specific models
   1. Create the network specific nonzero matrices using [create_network_specific_matrices.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/nonzero%20matrix%20creation%20scripts/create_network_specific_matrices.py) by running the following commands:
   
   For discovery:
@@ -228,7 +228,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   4. Lastly, use [plot_accuracies.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/network_specific_analyses/plot_accuracies.R) to make a barplot of the accuracies for all of the 17 networks.
 
 
-### Part 8: Pubertal Analyses
+### Part 9: Pubertal Analyses
   1. Run [make_behavior_dfs.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/make_behavior_dfs.py) to make the variation of dataframes that are subsampled from the original siblings removed sample and will be used in the puberty analyses.
 
   2. Run [submit_scripts.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/submit_scripts.py), which calls the a corresponding shell script that calls either [abcd_puberty_hormones.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_hormones.R), [abcd_puberty_stage_timing_gams.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_stage_timing_gams.R), and [abcd_puberty_stage_timing_gams_sex_specific.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_stage_timing_gams_sex_specific.R) depending on which dataset is used.
@@ -237,5 +237,5 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
 
 
-### Part 9: Demographic Table
+### Part 10: Demographic Table
   1. Use the samples created at the beginning of the project for the demgraphic table. Also use the hormone data and pds data found in `\cbica\projects\ash_pfn_sex_diff_abcd\dropbox\hormone_pds_data`. Use [demographics.ipynb](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/demographics_table/demographics.ipynb) to create the demographic table for the study.
