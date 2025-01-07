@@ -207,3 +207,35 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
   > NOTE: The [figure_s8_barplot.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/figure_s8_barplots/figure_s8_barplot.R) script does both svm and gams plotting, but requires users to comment out the code that is not being used (ie if plotting svm, comment out gams code).
   There are comments that indicate which code belongs to gams vs svm.
+
+### Part 7: Network specific models
+  1. Create the network specific nonzero matrices using [create_network_specific_matrices.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/nonzero%20matrix%20creation%20scripts/create_network_specific_matrices.py) by running the following commands:
+  
+  For discovery:
+  ```
+  python3 create_network_specific_matrices.py /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_siblings_removed_071524.csv discovery
+  ```
+  For replication
+  ```
+  python3 create_network_specific_matrices.py /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_siblings_removed_071524.csv replication
+  ```
+  *NOTE: Make sure that you have a folder called **network_specific_matrices** in your results folder to hold all of the results from the above script*
+
+  2. Use [svm_submit_network_specific_jobs.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20scripts/submit%20job%20scripts/svm_submit_network_specific_jobs.py) to submit 17 array jobs (one for each network) of 100 runs each by calling [network_specific_models_slurm.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20scripts/shell%20(job)%20wrappers/network_specific_models_slurm.sh) which calls [run_network_specific_svm.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20scripts/python%20scripts/run_network_specific_svm.py). You'll have to change the path to your *results folder* in both of the python scripts. 
+  
+  3. Once you have all of the results from step 2, run [get_network_specific_accuracies.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/network_specific_analyses/get_network_specific_accuracies.py) to get the accuracies of the 100 runs for each of the 17 networks. 
+
+  4. Lastly, use [plot_accuracies.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/network_specific_analyses/plot_accuracies.R) to make a barplot of the accuracies for all of the 17 networks.
+
+
+### Part 8: Pubertal Analyses
+  1. Run [make_behavior_dfs.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/make_behavior_dfs.py) to make the variation of dataframes that are subsampled from the original siblings removed sample and will be used in the puberty analyses.
+
+  2. Run [submit_scripts.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/submit_scripts.py), which calls the a corresponding shell script that calls either [abcd_puberty_hormones.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_hormones.R), [abcd_puberty_stage_timing_gams.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_stage_timing_gams.R), and [abcd_puberty_stage_timing_gams_sex_specific.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_stage_timing_gams_sex_specific.R) depending on which dataset is used.
+
+  3. Use
+
+
+
+### Part 9: Demographic Table
+  1. Use the samples created at the beginning of the project for the demgraphic table. Also use the hormone data and pds data found in `\cbica\projects\ash_pfn_sex_diff_abcd\dropbox\hormone_pds_data`. Use [demographics.ipynb](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/demographics_table/demographics.ipynb) to create the demographic table for the study.
