@@ -36,9 +36,13 @@ high_res_publishable_figs/
 /multivariate_analysis/res_100_times_roc_092624
 /multivariate_analysis/svm_090624_run
 /multivariate_analysis/svm_092624_run
-/univariate_analysis/pubertal_analyses/abs_sum_maps
+/univariate_analysis/pubertal_analyses/abs_sum_maps/cifti_files
+/univariate_analysis/pubertal_analyses/abs_sum_maps/matrices
+/univariate_analysis/pubertal_analyses/abs_sum_maps/plots
 /univariate_analysis/pubertal_analyses/barplots
-/univariate_analysis/pubertal_analyses/individual_network_maps
+/univariate_analysis/pubertal_analyses/individual_network_maps/discovery
+/univariate_analysis/pubertal_analyses/individual_network_maps/plots
+/univariate_analysis/pubertal_analyses/individual_network_maps/replication
 /univariate_analysis/pubertal_analyses/old_incorrect
 /univariate_analysis/pubertal_analyses/puberty_analyses_2
 /univariate_analysis/pubertal_analyses/puberty_data_local
