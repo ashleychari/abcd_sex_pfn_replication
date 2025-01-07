@@ -13,5 +13,5 @@ def create_abs_sum_matrix(matrix_filename, save_filename):
     print("Job done!")
 
 if __name__ == "__main__":
-    create_abs_sum_matrix("discovery_haufe_transformed_100_runs_weights_final.npy", "abs_sum_weight_brain_mat_discovery_haufe_100_runs.npy")
-    create_abs_sum_matrix("replication_haufe_transformed_100_runs_weights_final.npy", "abs_sum_weight_brain_mat_replication_haufe_100_runs.npy")
+    create_abs_sum_matrix("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/discovery_haufe_transformed_100_runs_weights_check.npy", "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/abs_sum_weight_brain_mat_discovery_haufe_100_runs_112124_check.npy")
+    create_abs_sum_matrix("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/replication_haufe_transformed_100_runs_weights_check.npy", "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/abs_sum_weight_brain_mat_replication_haufe_100_runs_112124_check.npy")

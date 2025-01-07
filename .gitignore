@@ -32,3 +32,33 @@ finalized_figs 2/
 finalized_figs/
 **/.DS_Store
 high_res_publishable_figs/
+/multivariate_analysis/res_100_times_roc_090624
+/multivariate_analysis/res_100_times_roc_092624
+/multivariate_analysis/svm_090624_run
+/multivariate_analysis/svm_092624_run
+/univariate_analysis/pubertal_analyses/abs_sum_maps
+/univariate_analysis/pubertal_analyses/barplots
+/univariate_analysis/pubertal_analyses/individual_network_maps
+/univariate_analysis/pubertal_analyses/old_incorrect
+/univariate_analysis/pubertal_analyses/puberty_analyses_2
+/univariate_analysis/pubertal_analyses/puberty_data_local
+/univariate_analysis/pubertal_analyses/puberty_scripts/check_pds_measures.R
+/multivariate_analysis/SVM scripts/shell (job) wrappers/check_svm.sh
+multivariate_analysis/SVM scripts/python scripts/check_svm.py
+multivariate_analysis/permutation_1000_times_092624
+multivariate_analysis/permutation_1000_times_112124_check
+/multivariate_analysis/network_specific_models_112124
+/multivariate_analysis/res_100_times_roc_check
+/multivariate_analysis/svm_check_run/
+/univariate_analysis/pubertal_analyses/test.R
+~$puberty_analyses.pptx
+~$puberty_analysis.pptx
+puberty_dataframe_shapes.txt
+dp5_checkin_slide.pptx
+demographics_table/ABCD_pfns_demographic_table.csv
+demographics_table/ABCD_pfns_demographic_table.xls
+demographics_table/data
+!demographics_table/demographics.ipynb
+puberty_analyses.pptx
+puberty_analysis.pptx
+Rplots.pdf

@@ -17,13 +17,17 @@ theme_set(theme_classic(base_size = 16))
 #data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/ABCD GAMs replication/univariate_analysis/discovery_univariate_barplot_all_networks_mat.csv")
 #data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/discovery_barplot_all_networks_mat.csv")
 data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/univariate_analysis_results/replication_barplot_all_networks_mat.csv")
+#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/matrices/discovery/pds_female_only_age_mat.csv")
+#data_brain1 <- read.csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/matrices/discovery/hormonse_hse_female_only_age_mat.csv")
 data_brain <-data_brain1
 
 #function to sum negative vertecies
 sumneg <- function(x) length(x[x<0])
+#sumneg <- function(x) sum(x[x<0])
 sums_neg<- as.data.frame(apply(data_brain,1,sumneg))
 
 #function to sum positive vertecies
+#sumpos <- function(x) sum(x[x>0])
 sumpos <- function(x) length(x[x>0])
 sums_pos<- as.data.frame(apply(data_brain,1,sumpos))
 
@@ -42,6 +46,7 @@ sums_all <- rbind(sums_pos, sums_neg)
 
 #function to get sum of absolute value of vertecies and put in df w corresponding network
 sumabs <- function(x) length(x[x!= 0])
+#sumabs <- function(x) sum(x[x!=0])
 sums_abs<- as.data.frame(apply(data_brain,1,sumabs))
 colnames(sums_abs) <- "vertecies"
 setDT(sums_abs, keep.rownames = "network")
@@ -98,6 +103,8 @@ barplot <- ggplot(sums_all_col_rank, aes(x = network, y = vertecies, fill=networ
                    pattern_spacing = 0.03,
                    pattern_key_scale_factor = 0.5) + scale_pattern_alpha_discrete(range = c(0,0.5), labels =c("Female", "Male")) +
   theme(legend.position="none") + theme(axis.text.x = element_text(size= 12), axis.text.y = element_text(size= 12), axis.title= element_text(size=18))
+
+barplot
 
 ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/univariate_analysis/barplots/high_res/gams_replication_barplot.png", plot=barplot, width=4.8, height=3.5)
 

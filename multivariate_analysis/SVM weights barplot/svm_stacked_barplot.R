@@ -17,7 +17,9 @@ library(RcppCNPy)
 #data_brain1 <- npyLoad("/Users/ashfrana/Desktop/code/ABCD GAMs replication/discovery_haufe_transformed_100_runs_weights_071624.npy")
 #data_brain1 <- npyLoad("/Users/ashfrana/Desktop/code/ABCD GAMs replication/replication_haufe_transformed_100_runs_weights_071624.npy")
 #data_brain1 <- npyLoad("/Users/ashfrana/Desktop/code/ABCD GAMs replication/svm_072324_run/discovery_haufe_transformed_100_runs_weights_072324.npy")
-data_brain1 <- npyLoad("/Users/ashfrana/Desktop/code/ABCD GAMs replication/svm_072324_run/replication_haufe_transformed_100_runs_weights_072324.npy")
+#data_brain1 <- npyLoad("/Users/ashfrana/Desktop/code/ABCD GAMs replication/svm_072324_run/replication_haufe_transformed_100_runs_weights_072324.npy")
+#data_brain1 <- npyLoad("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/discovery_haufe_transformed_100_runs_weights_check.npy")
+data_brain1 <- npyLoad("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/replication_haufe_transformed_100_runs_weights_check.npy")
 data_brain <-data_brain1
 
 #function to sum negative weights
@@ -85,7 +87,7 @@ netName <- c("SM", "VS", "SM", "SM", "VS", "SM", "FP", "AU", "DM", "FP", "VA",
 
 colormap <- cbind(colormap, netName)
 
-write.csv(sums_all_col_rank, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/figure_s8_barplots/network_tables/svm_discovery_network_sums_table.csv")
+write.csv(sums_all_col_rank, "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/svm_replication_network_sums_table_check.csv")
 
 
 barplot <- ggplot(sums_all_col_rank, aes(x = network, y = weights, fill=network, alpha=factor(sex)))+
@@ -99,4 +101,5 @@ barplot <- ggplot(sums_all_col_rank, aes(x = network, y = weights, fill=network,
                    pattern_spacing = 0.03,
                    pattern_key_scale_factor = 0.5) + scale_pattern_alpha_discrete(range = c(0,0.5), labels =c("Female", "Male")) + theme(axis.text.x = element_text(size= 12), axis.text.y = element_text(size= 12), axis.title = element_text(size=18)) + theme(legend.position = "none")
 
-ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/finalized_figs/multivariate_analysis/barplots/svm_replication_barplot.png", plot=barplot, width=4.8, height=3.5, dpi=300)
+barplot
+ggsave("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/svm_replication_barplot_check.png", plot=barplot, width=4.8, height=3.5, dpi=300)

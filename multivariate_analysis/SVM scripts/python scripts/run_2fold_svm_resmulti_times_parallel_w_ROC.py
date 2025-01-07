@@ -73,7 +73,7 @@ def c_param_search(X_train, y_train, covariates, covariate_indices, random_state
             y_pred = clf.predict(X_val_scaled)
             fold_accuracies.append(accuracy_score(y_val_cv, y_pred))
 
-    average_accuracies.append(np.mean(fold_accuracies))
+        average_accuracies.append(np.mean(fold_accuracies))
 
     # Identify optimal c based on auc
     best_c_ind = np.argmax(average_accuracies)
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     replication_data_for_ridge = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_siblings_removed_071524.csv')
     discovery_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_discovery_siblings_removed_nonzero_indices.csv')
     replication_nonzero_indices = pd.read_csv('/cbica/projects/ash_pfn_sex_diff_abcd/results/AtlasLoading_All_RemoveZero_replication_siblings_removed_nonzero_indices.csv')
-    results_folder = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_092624"
+    results_folder = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/res_100_times_roc_check"
     c_range_start = int(sys.argv[1])
     c_range_end = int(sys.argv[2])
     time_idx = int(sys.argv[3])

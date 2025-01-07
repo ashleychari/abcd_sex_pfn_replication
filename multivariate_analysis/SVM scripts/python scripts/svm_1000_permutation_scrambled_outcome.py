@@ -75,7 +75,7 @@ def c_param_search(X_train, y_train, covariates, covariate_indices, random_state
             y_pred = clf.predict(X_val_scaled)
             fold_accuracies.append(accuracy_score(y_val_cv, y_pred))
 
-    average_accuracies.append(np.mean(fold_accuracies))
+        average_accuracies.append(np.mean(fold_accuracies))
 
     # Identify optimal c based on auc
     best_c_ind = np.argmax(average_accuracies)

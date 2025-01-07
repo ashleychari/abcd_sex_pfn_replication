@@ -53,14 +53,14 @@ def get_metrics(data_for_ridge, results_folder, set, save_filename):
 
 
 if __name__ == "__main__":
-    discovery_data_for_ridge = pd.read_csv("/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_siblings_removed_071524.csv")
-    res_multitimes_path = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/permutation_1000_times_081524"
-    disc_avg_table_filename = "/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_permutation_accuracy_081524.csv"
+    discovery_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/discovery_sample_siblings_removed_071524.csv")
+    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/permutation_1000_times_112124_check"
+    disc_avg_table_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/discovery_permutation_accuracy_112124_check.csv"
     get_metrics(discovery_data_for_ridge, res_multitimes_path, "discovery", disc_avg_table_filename)
 
-    replication_data_for_ridge = pd.read_csv("/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_siblings_removed_071524.csv")
-    res_multitimes_path = "/cbica/projects/ash_pfn_sex_diff_abcd/results/multivariate_analysis/permutation_1000_times_081524"
-    rep_avg_table_filename = "/cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_permutation_accuracy_081524.csv"
+    replication_data_for_ridge = pd.read_csv("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/discovery and replication sample setup scripts/data/replication_sample_siblings_removed_071524.csv")
+    res_multitimes_path = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/permutation_1000_times_112124_check"
+    rep_avg_table_filename = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/multivariate_analysis/svm_check_run/replication_permutation_accuracy_112124_check.csv"
     get_metrics(replication_data_for_ridge, res_multitimes_path, "replication", rep_avg_table_filename)
 
 
