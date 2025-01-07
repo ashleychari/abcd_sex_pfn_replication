@@ -229,7 +229,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 
 
 ### Part 9: Pubertal Analyses
-  1. Run [make_behavior_dfs.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/make_behavior_dfs.py) to make the variation of dataframes that are subsampled from the original siblings removed sample and will be used in the puberty analyses.
+  1. Run [make_behavior_dfs.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/make_behavior_dfs.py) to make the variation of dataframes that are subsampled from the original siblings removed sample and will be used in the puberty analyses. Use data from `\cbica\projects\ash_pfn_sex_diff_abcd\dropbox\hormone_pds_data` and the discovery and replication samples created at the beginning of the project.
 
   2. Run [submit_scripts.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/submit_scripts.py), which calls the a corresponding shell script that calls either [abcd_puberty_hormones.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_hormones.R), [abcd_puberty_stage_timing_gams.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_stage_timing_gams.R), and [abcd_puberty_stage_timing_gams_sex_specific.R](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/univariate_analysis/pubertal_analyses/puberty_scripts/abcd_puberty_stage_timing_gams_sex_specific.R) depending on which dataset is used.
 
