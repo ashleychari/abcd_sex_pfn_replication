@@ -38,13 +38,20 @@ high_res_publishable_figs/
 /multivariate_analysis/svm_092624_run
 /univariate_analysis/pubertal_analyses/abs_sum_maps/cifti_files
 /univariate_analysis/pubertal_analyses/abs_sum_maps/matrices
+/univariate_analysis/pubertal_analyses/abs_sum_maps/oSex_plots
+/univariate_analysis/pubertal_analyses/abs_sum_maps/oSex_plots_rescaled
+/univariate_analysis/pubertal_analyses/abs_sum_maps/matrices_original
+/univariate_analysis/pubertal_analyses/abs_sum_maps/cifti_files_original
 /univariate_analysis/pubertal_analyses/abs_sum_maps/plots
-/univariate_analysis/pubertal_analyses/barplots
+/univariate_analysis/pubertal_analyses/barplots/barplots
+/univariate_analysis/pubertal_analyses/barplots/matrices
+/univariate_analysis/pubertal_analyses/barplots/matrices_original
 /univariate_analysis/pubertal_analyses/individual_network_maps/discovery
 /univariate_analysis/pubertal_analyses/individual_network_maps/plots
 /univariate_analysis/pubertal_analyses/individual_network_maps/replication
 /univariate_analysis/pubertal_analyses/old_incorrect
 /univariate_analysis/pubertal_analyses/puberty_analyses_2
+/univariate_analysis/pubertal_analyses/puberty_analyses_2_original
 /univariate_analysis/pubertal_analyses/puberty_data_local
 /univariate_analysis/pubertal_analyses/puberty_scripts/check_pds_measures.R
 /multivariate_analysis/SVM scripts/shell (job) wrappers/check_svm.sh
@@ -68,3 +75,7 @@ puberty_analysis.pptx
 Rplots.pdf
 /univariate_analysis/pubertal_analyses/abs_sum_maps/scaled_plots
 /puberty_data
+/univariate_analysis/pubertal_analyses/submit_scripts_pds_p_category_only.py
+/univariate_analysis/pubertal_analyses/submit_scripts_oSex_pds_p_category_only.py
+demographics_table/ABCD_pfns_demographic_table_fixed.xlsx
+svm_changes_blurb.pdf

@@ -10,9 +10,9 @@ def create_behavior_df(original_df, df_to_merge, indepdent_vars, sexes, set):
         print("IN HERE")
         pds_p_category = []
         for i in range(len(df_to_merge['pds_p_ss_female_category'])):
-            if not pd.isnull(df_to_merge['pds_p_ss_female_category'].values[i]) and pd.isnull(df_to_merge['pds_p_ss_male_category'].values[i]):
+            if not pd.isnull(df_to_merge['pds_p_ss_female_category'].values[i]) and pd.isnull(df_to_merge['pds_p_ss_male_category'].values[i]) and original_df[original_df['subjectkey'] == df_to_merge['subjectkey'].values[i]]['sex'].values == "F":
                 pds_p_category.append(df_to_merge['pds_p_ss_female_category'].values[i])
-            elif pd.isnull(df_to_merge['pds_p_ss_female_category'].values[i]) and not pd.isnull(df_to_merge['pds_p_ss_male_category'].values[i]):
+            elif pd.isnull(df_to_merge['pds_p_ss_female_category'].values[i]) and not pd.isnull(df_to_merge['pds_p_ss_male_category'].values[i]) and original_df[original_df['subjectkey'] == df_to_merge['subjectkey'].values[i]]['sex'].values == "M":
                 pds_p_category.append(df_to_merge['pds_p_ss_male_category'].values[i])
             else:
                 pds_p_category.append(None)
