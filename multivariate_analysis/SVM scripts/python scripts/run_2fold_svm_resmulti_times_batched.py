@@ -144,8 +144,8 @@ def run_2fold_svm(matrix_filename, discovery_data, replication_data, matched_gro
             fold_accuracies.append(accuracy_score(y_val_cv, y_pred))
             fold_aucs.append(roc_auc_score(y_val_cv, y_pred))
 
-    average_accuracies.append(np.mean(fold_accuracies))
-    average_aucs.append(np.mean(fold_aucs))
+        average_accuracies.append(np.mean(fold_accuracies))
+        average_aucs.append(np.mean(fold_aucs))
 
     # Identify optimal c based on accuracy
     best_c_ind = np.argmax(average_accuracies)

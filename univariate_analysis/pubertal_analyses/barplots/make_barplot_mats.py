@@ -23,14 +23,14 @@ if __name__ == "__main__":
     discovery_tests = os.listdir("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/puberty_analyses_2/discovery")
     replication_tests = os.listdir("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/puberty_analyses_2/replication")
     disc_results_folder = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/puberty_analyses_2/discovery"
-    disc_save_folder = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/matrices/discovery"
+    disc_save_folder = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/matrices_redo/discovery"
     for disc_test in discovery_tests:
         results_folder = f"{disc_results_folder}/{disc_test}"
         filename = f"{disc_save_folder}/{disc_test}_mat.csv"
         create_abs_sum_mat(results_folder, filename, "discovery")
 
     rep_results_folder = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/puberty_analyses_2/replication"
-    rep_save_folder = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/matrices/replication"
+    rep_save_folder = "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/matrices_redo/replication"
     for rep_test in replication_tests:
         results_folder = f"{rep_results_folder}/{rep_test}"
         filename = f"{rep_save_folder}/{rep_test}_mat.csv"

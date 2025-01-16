@@ -25,8 +25,9 @@ if __name__ == "__main__":
     #tests = ['hormone_ert_mf_age', 'pds_male_female_no_age', 'pds_male_female_age']
     for test in tests:
         disc_results_folder = f"/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/puberty_analyses_2/discovery/{test}"
-        rep_results_folder = f"/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/puberty_analyses_2/replication/{test}"
         disc_save_filename = f"/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/abs_sum_maps/matrices/discovery/{test}_z_mat.csv"
+        
+        rep_results_folder = f"/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/puberty_analyses_2/replication/{test}"
         rep_save_filename = f"/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/abs_sum_maps/matrices/replication/{test}_z_mat.csv"
         create_abs_sum_mat(disc_results_folder, "discovery", disc_save_filename)
         create_abs_sum_mat(rep_results_folder, "replication", rep_save_filename)
