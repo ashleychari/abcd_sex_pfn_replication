@@ -7,11 +7,11 @@ library(data.table)
 library(ggpattern)
 theme_set(theme_classic(base_size = 16))
 
-results_folder_path <- "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/matrices_redo"
+results_folder_path <- "/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/matrices"
 args = commandArgs(trailingOnly=TRUE)
 set = args[1]
 matrix_filename <- args[2]
-save_folder_path <- paste0("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/barplots_redo/", set)
+save_folder_path <- paste0("/Users/ashfrana/Desktop/code/abcd_sex_pfn_replication/univariate_analysis/pubertal_analyses/barplots/barplots/", set)
 results_folder_path <- paste0(results_folder_path, "/", set)
 save_filename <- paste0(save_folder_path, "/", gsub(".csv", ".png", matrix_filename))
 
