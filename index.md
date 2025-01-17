@@ -211,14 +211,6 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
 ### Part 8: Network specific models
   1. Create the network specific nonzero matrices using [create_network_specific_matrices.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/discovery%20and%20replication%20sample%20setup%20scripts/create_network_specific_matrices.py) by running the following commands:
   
-  For discovery:
-  ```
-  python3 create_network_specific_matrices.py /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/discovery_sample_siblings_removed_071524.csv discovery
-  ```
-  For replication
-  ```
-  python3 create_network_specific_matrices.py /cbica/projects/ash_pfn_sex_diff_abcd/dropbox/replication_sample_siblings_removed_071524.csv replication
-  ```
   *NOTE: Make sure that you have a folder called **network_specific_matrices** in your results folder to hold all of the results from the above script*
 
   2. Use [svm_submit_network_specific_jobs.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20scripts/submit%20job%20scripts/svm_submit_network_specific_jobs.py) to submit 17 array jobs (one for each network) of 100 runs each by calling [network_specific_models_slurm.sh](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20scripts/shell%20(job)%20wrappers/network_specific_models_slurm.sh) which calls [run_network_specific_svm.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/SVM%20scripts/python%20scripts/run_network_specific_svm.py). You'll have to change the path to your *results folder* in both of the python scripts. 
