@@ -209,7 +209,7 @@ This project aims to replicate the work done by Shanmugan et al (2022), Sex Diff
   There are comments that indicate which code belongs to gams vs svm.
 
 ### Part 8: Network specific models
-  1. Create the network specific nonzero matrices using [create_network_specific_matrices.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/multivariate_analysis/nonzero%20matrix%20creation%20scripts/create_network_specific_matrices.py) by running the following commands:
+  1. Create the network specific nonzero matrices using [create_network_specific_matrices.py](https://github.com/ashleychari/abcd_sex_pfn_replication/blob/main/discovery%20and%20replication%20sample%20setup%20scripts/create_network_specific_matrices.py) by running the following commands:
   
   For discovery:
   ```
